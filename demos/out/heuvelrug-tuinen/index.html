@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Heuvelrug Tuinen | Hovenier in Doorn en omgeving</title>
+<meta name="description" content="Heuvelrug Tuinen: tuinaanleg, tuinonderhoud en bestrating in Doorn en omgeving. Vraag binnen 1 minuut een gratis offerte aan.">
+<style>
+  :root{
+    --groen:#2f6b3a; --groen-donker:#1f4a28; --groen-licht:#e8f1e6;
+    --aarde:#8a6a43; --tekst:#1d2420; --grijs:#5d6a62; --bg:#fbfcfa; --wit:#fff;
+    --radius:14px; --schaduw:0 10px 30px rgba(31,74,40,.12);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--tekst);background:var(--bg);line-height:1.6}
+  a{color:inherit}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+  header{position:sticky;top:0;z-index:10;background:rgba(251,252,250,.92);backdrop-filter:blur(8px);border-bottom:1px solid #e3e9e2}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:68px}
+  .logo{font-weight:800;font-size:1.15rem;display:flex;gap:10px;align-items:center;text-decoration:none}
+  .logo svg{width:30px;height:30px}
+  .nav ul{display:flex;gap:26px;list-style:none}
+  .nav ul a{text-decoration:none;color:var(--grijs);font-weight:500}
+  .nav ul a:hover{color:var(--groen)}
+  .btn{display:inline-block;background:var(--groen);color:#fff;padding:13px 22px;border-radius:999px;text-decoration:none;font-weight:600;border:0;cursor:pointer;font-size:1rem;transition:.2s}
+  .btn:hover{background:var(--groen-donker);transform:translateY(-1px)}
+  .btn.ghost{background:transparent;color:var(--groen);border:2px solid var(--groen)}
+  .hero{padding:80px 0 70px;background:
+      radial-gradient(1200px 400px at 85% -10%,#d9ead4 0,transparent 60%),
+      linear-gradient(180deg,var(--bg),#f1f6ef)}
+  .hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:50px;align-items:center}
+  .badge{display:inline-flex;gap:8px;align-items:center;background:var(--wit);border:1px solid #dfe8dc;padding:6px 14px;border-radius:999px;font-size:.9rem;color:var(--grijs);margin-bottom:18px}
+  .badge b{color:#e2a400}
+  h1{font-size:clamp(2.1rem,4.5vw,3.3rem);line-height:1.12;letter-spacing:-.02em;margin-bottom:18px}
+  h1 span{color:var(--groen)}
+  .lead{font-size:1.15rem;color:var(--grijs);margin-bottom:28px;max-width:540px}
+  .cta-row{display:flex;gap:14px;flex-wrap:wrap}
+  .hero-img{aspect-ratio:4/5;border-radius:24px;box-shadow:var(--schaduw);overflow:hidden;position:relative;
+      background:linear-gradient(160deg,#9cc58f 0%,#4f8f4a 45%,#2f6b3a 100%)}
+  .hero-img svg{position:absolute;inset:0;width:100%;height:100%}
+  .hero-img .tag{position:absolute;left:18px;bottom:18px;background:var(--wit);padding:12px 16px;border-radius:12px;box-shadow:var(--schaduw);font-size:.9rem}
+  .usp{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:-34px;position:relative}
+  .usp div{background:var(--wit);border-radius:var(--radius);padding:18px;box-shadow:var(--schaduw);font-weight:600;font-size:.95rem;display:flex;gap:10px;align-items:center}
+  .usp i{font-style:normal;background:var(--groen-licht);color:var(--groen);width:34px;height:34px;border-radius:50%;display:grid;place-items:center;flex-shrink:0}
+  section{padding:90px 0}
+  h2{font-size:clamp(1.7rem,3vw,2.4rem);letter-spacing:-.01em;margin-bottom:12px}
+  .sub{color:var(--grijs);max-width:620px;margin-bottom:40px}
+  .diensten{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .kaart{background:var(--wit);border:1px solid #e3e9e2;border-radius:var(--radius);padding:28px;transition:.2s}
+  .kaart:hover{box-shadow:var(--schaduw);transform:translateY(-3px)}
+  .kaart .ico{width:52px;height:52px;border-radius:12px;background:var(--groen-licht);display:grid;place-items:center;margin-bottom:16px;font-size:1.5rem}
+  .kaart h3{margin-bottom:8px}
+  .kaart p{color:var(--grijs);font-size:.97rem}
+  .projecten{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .project{border-radius:var(--radius);aspect-ratio:4/3;position:relative;overflow:hidden;color:#fff;display:flex;align-items:flex-end;padding:18px;font-weight:600}
+  .project::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 50%,rgba(0,0,0,.45))}
+  .project span{position:relative;z-index:1}
+  .p1{background:linear-gradient(135deg,#7fb069,#3d7a3a)}
+  .p2{background:linear-gradient(135deg,#c9b38a,#8a6a43)}
+  .p3{background:linear-gradient(135deg,#5e9c76,#24543a)}
+  .p4{background:linear-gradient(135deg,#a3c47d,#5b8a3c)}
+  .p5{background:linear-gradient(135deg,#b6a58a,#6b5a44)}
+  .p6{background:linear-gradient(135deg,#86b39a,#2f6b4a)}
+  .foto-noot{font-size:.85rem;color:var(--grijs);margin-top:12px}
+  .reviews{background:var(--groen-donker);color:#fff}
+  .reviews .sub{color:#c7dcc6}
+  .rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .rev{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:var(--radius);padding:24px}
+  .sterren{color:#ffc93c;letter-spacing:2px;margin-bottom:10px}
+  .rev p{margin-bottom:14px}
+  .rev small{color:#c7dcc6}
+  .werkwijze{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;counter-reset:stap}
+  .stap{position:relative;padding-top:50px}
+  .stap::before{counter-increment:stap;content:counter(stap);position:absolute;top:0;left:0;width:38px;height:38px;border-radius:50%;background:var(--groen);color:#fff;display:grid;place-items:center;font-weight:700}
+  .stap h3{font-size:1.05rem;margin-bottom:6px}
+  .stap p{color:var(--grijs);font-size:.95rem}
+  .offerte{background:var(--groen-licht)}
+  .off-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:50px;align-items:start}
+  form{background:var(--wit);border-radius:20px;padding:30px;box-shadow:var(--schaduw);display:grid;gap:14px}
+  .rij{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  label{font-size:.88rem;font-weight:600;display:block;margin-bottom:5px}
+  input,select,textarea{width:100%;padding:12px 14px;border:1px solid #cfd9cc;border-radius:10px;font:inherit;background:#fff}
+  input:focus,select:focus,textarea:focus{outline:2px solid var(--groen);border-color:transparent}
+  .bedankt{display:none;text-align:center;padding:30px}
+  .contact-lijst{list-style:none;display:grid;gap:14px;margin-top:24px}
+  .contact-lijst li{display:flex;gap:12px;align-items:center;font-weight:600}
+  .contact-lijst i{font-style:normal;background:var(--wit);width:40px;height:40px;border-radius:50%;display:grid;place-items:center}
+  footer{background:#152e1b;color:#b9cdb8;padding:40px 0;font-size:.92rem}
+  .foot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+  .wa{position:fixed;right:20px;bottom:20px;background:#25d366;color:#fff;width:58px;height:58px;border-radius:50%;display:grid;place-items:center;box-shadow:0 8px 24px rgba(0,0,0,.2);text-decoration:none;font-size:1.6rem;z-index:20}
+  @media(max-width:900px){
+    .hero-grid,.off-grid{grid-template-columns:1fr}
+    .hero-img{aspect-ratio:16/10}
+    .usp{grid-template-columns:1fr 1fr;margin-top:24px}
+    .diensten,.projecten,.rev-grid{grid-template-columns:1fr 1fr}
+    .werkwijze{grid-template-columns:1fr 1fr}
+    .nav ul{display:none}
+  }
+  @media(max-width:560px){
+    .diensten,.projecten,.rev-grid,.werkwijze,.usp,.rij{grid-template-columns:1fr}
+    section{padding:64px 0}
+    .nav .btn{padding:10px 16px;font-size:.9rem}
+  }
+</style>
+</head>
+<body>
+<div style="position:relative;z-index:999;background:#111;color:#fff;font:14px/1.4 system-ui,sans-serif;padding:8px 14px;text-align:center">Demo-ontwerp voor <b>Heuvelrug Tuinen</b> &middot; teksten, foto's en reviews zijn voorbeelden</div>
+<header>
+  <div class="wrap nav">
+    <a href="#" class="logo">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="16" fill="#2f6b3a"/><path d="M16 25V13m0 0c0-4 3-7 7-7 0 4-3 7-7 7Zm0 3c0-3.5-2.6-6-6-6 0 3.5 2.6 6 6 6Z" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+      Heuvelrug Tuinen
+    </a>
+    <ul>
+      <li><a href="#diensten">Diensten</a></li>
+      <li><a href="#projecten">Projecten</a></li>
+      <li><a href="#reviews">Reviews</a></li>
+      <li><a href="#werkwijze">Werkwijze</a></li>
+    </ul>
+    <a href="#offerte" class="btn">Gratis offerte</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="badge"><b>★★★★★</b> Beoordeeld met een 9,2 door tevreden klanten</div>
+      <h1>Uw droomtuin in <span>Doorn</span>, vakkundig aangelegd</h1>
+      <p class="lead">Van ontwerp tot onderhoud: Heuvelrug Tuinen maakt tuinen waar u jarenlang van geniet. Persoonlijk, betrouwbaar en altijd een vaste prijs vooraf.</p>
+      <div class="cta-row">
+        <a href="#offerte" class="btn">Vraag gratis offerte aan</a>
+        <a href="tel:+31600000000" class="btn ghost">Bel 06 - 00 00 00 00</a>
+      </div>
+    </div>
+    <div class="hero-img" role="img" aria-label="Aangelegde tuin">
+      <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <rect y="330" width="400" height="170" fill="#c9b38a"/>
+        <path d="M0 330h400" stroke="#a88d63" stroke-width="3"/>
+        <g fill="#b39c74" opacity=".55"><rect x="20" y="350" width="80" height="40" rx="3"/><rect x="110" y="350" width="80" height="40" rx="3"/><rect x="200" y="350" width="80" height="40" rx="3"/><rect x="290" y="350" width="90" height="40" rx="3"/><rect x="60" y="400" width="80" height="40" rx="3"/><rect x="150" y="400" width="80" height="40" rx="3"/><rect x="240" y="400" width="80" height="40" rx="3"/></g>
+        <circle cx="80" cy="250" r="70" fill="#3d7a3a"/><circle cx="130" cy="220" r="60" fill="#4f8f4a"/>
+        <circle cx="320" cy="240" r="85" fill="#2f6b3a"/><circle cx="260" cy="280" r="50" fill="#5e9c56"/>
+        <rect x="0" y="300" width="400" height="34" fill="#3f7d3b"/>
+        <g fill="#f3d36b"><circle cx="40" cy="310" r="6"/><circle cx="90" cy="318" r="5"/><circle cx="300" cy="312" r="6"/><circle cx="350" cy="320" r="5"/></g>
+        <g fill="#e9899b"><circle cx="160" cy="314" r="5"/><circle cx="220" cy="318" r="6"/></g>
+      </svg>
+      <div class="tag">🌿 Actief in Doorn en omgeving</div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap usp">
+  <div><i>✓</i> Vaste prijs vooraf</div>
+  <div><i>✓</i> Binnen 48 uur reactie</div>
+  <div><i>✓</i> 10+ jaar ervaring</div>
+  <div><i>✓</i> Garantie op aanleg</div>
+</div>
+
+<section id="diensten">
+  <div class="wrap">
+    <h2>Wat wij voor u doen</h2>
+    <p class="sub">Eén aanspreekpunt voor uw complete tuin. Geen gedoe met verschillende vakmensen.</p>
+    <div class="diensten">
+      <div class="kaart"><div class="ico">📐</div><h3>Tuinontwerp</h3><p>Een ontwerp op maat dat past bij uw huis, uw wensen en uw budget. Inclusief 3D-impressie.</p></div>
+      <div class="kaart"><div class="ico">🌳</div><h3>Tuinaanleg</h3><p>Van grondwerk tot de laatste plant. Wij leggen uw tuin compleet aan, netjes en op tijd.</p></div>
+      <div class="kaart"><div class="ico">🧱</div><h3>Bestrating & terras</h3><p>Terrassen, opritten en paden in keramiek, natuursteen of klinkers. Strak gelegd.</p></div>
+      <div class="kaart"><div class="ico">✂️</div><h3>Tuinonderhoud</h3><p>Periodiek onderhoud of een eenmalige opknapbeurt. Uw tuin het hele jaar op zijn best.</p></div>
+      <div class="kaart"><div class="ico">🪵</div><h3>Schuttingen & overkappingen</h3><p>Duurzaam houtwerk, schuttingen en overkappingen die jaren meegaan.</p></div>
+      <div class="kaart"><div class="ico">💧</div><h3>Beregening & verlichting</h3><p>Slimme beregening en sfeervolle tuinverlichting, ook te bedienen via uw telefoon.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="projecten" style="padding-top:0">
+  <div class="wrap">
+    <h2>Recente projecten</h2>
+    <p class="sub">Een greep uit tuinen die wij de afgelopen tijd in Doorn en omgeving hebben aangelegd.</p>
+    <div class="projecten">
+      <div class="project p1"><span>Gezinstuin met gazon · Doorn</span></div>
+      <div class="project p2"><span>Keramisch terras · 45 m²</span></div>
+      <div class="project p3"><span>Natuurlijke tuin met vijver</span></div>
+      <div class="project p4"><span>Voortuin renovatie</span></div>
+      <div class="project p5"><span>Oprit in gebakken klinkers</span></div>
+      <div class="project p6"><span>Onderhoudsvriendelijke stadstuin</span></div>
+    </div>
+    <p class="foto-noot">Demo: hier komen uw eigen projectfoto's.</p>
+  </div>
+</section>
+
+<section id="reviews" class="reviews">
+  <div class="wrap">
+    <h2>Wat klanten zeggen</h2>
+    <p class="sub">Uw reviews van Google, Werkspot en Trustoo, overzichtelijk op uw eigen website.</p>
+    <div class="rev-grid">
+      <div class="rev"><div class="sterren">★★★★★</div><p>"Afspraken werden precies nagekomen en de tuin is prachtig geworden. Echte vakmensen."</p><small>Familie J. · Doorn</small></div>
+      <div class="rev"><div class="sterren">★★★★★</div><p>"Snel een duidelijke offerte en geen verrassingen achteraf. Zeker een aanrader."</p><small>M. de V. · Doorn en omgeving</small></div>
+      <div class="rev"><div class="sterren">★★★★★</div><p>"Ons terras is strak gelegd en alles werd netjes opgeruimd. Heel tevreden!"</p><small>R. en S. · Doorn</small></div>
+    </div>
+  </div>
+</section>
+
+<section id="werkwijze">
+  <div class="wrap">
+    <h2>Zo werken wij</h2>
+    <p class="sub">Helder en zonder verrassingen, van het eerste contact tot de oplevering.</p>
+    <div class="werkwijze">
+      <div class="stap"><h3>Aanvraag</h3><p>U vult het formulier in of belt ons. Binnen 48 uur nemen wij contact op.</p></div>
+      <div class="stap"><h3>Kennismaking</h3><p>We komen langs, bekijken de tuin en bespreken uw wensen. Gratis.</p></div>
+      <div class="stap"><h3>Offerte</h3><p>U ontvangt een duidelijke offerte met een vaste prijs en planning.</p></div>
+      <div class="stap"><h3>Aanleg</h3><p>Wij gaan aan de slag en leveren uw tuin netjes en op tijd op.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="offerte" class="offerte">
+  <div class="wrap off-grid">
+    <div>
+      <h2>Vraag een gratis offerte aan</h2>
+      <p class="sub" style="margin-bottom:10px">Vertel ons kort wat u wilt. We reageren binnen 48 uur met een voorstel, vrijblijvend.</p>
+      <ul class="contact-lijst">
+        <li><i>📞</i> <a href="tel:+31600000000">06 - 00 00 00 00</a></li>
+        <li><i>✉️</i> <a href="mailto:info@uwbedrijf.nl">info@uwbedrijf.nl</a></li>
+        <li><i>📍</i> Doorn en omgeving</li>
+      </ul>
+    </div>
+    <form id="offerteForm">
+      <div class="rij">
+        <div><label for="naam">Naam</label><input id="naam" required></div>
+        <div><label for="tel">Telefoon</label><input id="tel" type="tel" required></div>
+      </div>
+      <div class="rij">
+        <div><label for="mail">E-mail</label><input id="mail" type="email" required></div>
+        <div><label for="pc">Postcode</label><input id="pc"></div>
+      </div>
+      <div>
+        <label for="soort">Waar kunnen we u mee helpen?</label>
+        <select id="soort">
+          <option>Complete tuinaanleg</option><option>Tuinontwerp</option><option>Bestrating / terras</option>
+          <option>Tuinonderhoud</option><option>Schutting / overkapping</option><option>Iets anders</option>
+        </select>
+      </div>
+      <div>
+        <label for="opp">Geschatte grootte tuin</label>
+        <select id="opp"><option>Tot 50 m²</option><option>50 – 100 m²</option><option>100 – 250 m²</option><option>Meer dan 250 m²</option></select>
+      </div>
+      <div><label for="bericht">Uw wensen</label><textarea id="bericht" rows="4" placeholder="Bijv. nieuw terras, gazon vervangen, meer groen..."></textarea></div>
+      <button class="btn" type="submit">Verstuur aanvraag</button>
+    </form>
+    <div class="bedankt" id="bedankt"><h3>Bedankt voor uw aanvraag! 🌱</h3><p>We nemen binnen 48 uur contact met u op.</p></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot">
+    <div><strong style="color:#fff">Heuvelrug Tuinen</strong><br>Hovenier in Doorn en omgeving</div>
+    <div>06 - 00 00 00 00 · info@uwbedrijf.nl</div>
+    <div>© <span id="jaar"></span> Heuvelrug Tuinen</div>
+  </div>
+</footer>
+
+<a class="wa" href="https://wa.me/31600000000" aria-label="WhatsApp">💬</a>
+
+<script>
+  document.getElementById('jaar').textContent = new Date().getFullYear();
+  document.getElementById('offerteForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    this.style.display = 'none';
+    document.getElementById('bedankt').style.display = 'block';
+  });
+</script>
+</body>
+</html>
