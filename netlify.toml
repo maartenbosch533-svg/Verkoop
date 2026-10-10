@@ -1,0 +1,13 @@
+# Netlify: publish the repository root, show the studio site on the home page.
+[build]
+  publish = "."
+
+[[redirects]]
+  from = "/"
+  to = "/site/"
+  status = 302
+
+[[headers]]
+  for = "/site/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
