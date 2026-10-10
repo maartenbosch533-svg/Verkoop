@@ -68,6 +68,8 @@ Een filmische site voor je eigen webdesignbedrijf (werknaam **Nachtwerk**), met:
 - prijspakketten en een contactformulier.
 
 - **Foto's** (`site/assets/img/`) zijn zelfgemaakte 3D-renders, dus geen rechtenproblemen. De laptops en telefoons tonen je eigen demo's.
-- **Naam en e-mail aanpassen:** zet je e-mailadres in `STUDIO` onderaan `site/index.html` (zoek op `hallo@nachtwerk.studio`). Wil je een andere naam? Zoek-en-vervang dan `nachtwerk` / `Nachtwerk` / `NACHTWERK`.
+- **Talen:** de site is tweetalig (NL/EN), met een wisselknop in het menu. Nederlandse browsers krijgen standaard Nederlands, alle andere Engels. Een directe link naar een taal maak je met `#en` of `#nl` achter de URL. Teksten staan in de `EN`-lijst in `site/index.html`.
+- **Logo's:** vijf naam- en logorichtingen staan in `site/assets/logos/`, met een overzicht in `logo-overzicht.png`. Er zijn donkere en lichte versies plus app-iconen, en de letters zijn omgezet naar vectorvormen. Je maakt ze opnieuw met `python3 tools/logos.py`.
+- **Naam en e-mail aanpassen:** zet je e-mailadres in `STUDIO` onderaan `site/index.html` (zoek op `hallo@nachtwerk.studio`). Een andere naam stel je in op één plek: `naam` in `STUDIO`.
 - **Online zetten:** sleep de hele map `Verkoop` (of alleen `site/` + `demos/out/`) naar Netlify. De werk-kaarten linken naar `../demos/out/...`.
 - **Lokaal bekijken:** `python3 -m http.server` in de map `Verkoop`, en open dan http://localhost:8000/site/ (het 3D-script werkt niet via dubbelklikken op het bestand).
