@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Nachtwerk | Digitale studio</title>
-<meta name="description" content="Nachtwerk ontwerpt en bouwt websites die opvallen en verkopen. Filmisch ontwerp, 3D en motion, binnen 7 dagen live.">
-<meta property="og:title" content="Nachtwerk | Websites die verkopen">
+<title>Pixelbuild | Digitale studio</title>
+<meta name="description" content="Pixelbuild ontwerpt en bouwt websites die opvallen en verkopen. Filmisch ontwerp, 3D en motion, binnen 7 dagen live.">
+<meta property="og:title" content="Pixelbuild | Websites die verkopen">
 <meta property="og:image" content="assets/img/laptopDark.jpg">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%228%22 fill=%22%23060807%22/%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%226%22 fill=%22%23c4f25a%22/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20120%20120%22%20width%3D%22120%22%20height%3D%22120%22%3E%3Crect%20width%3D%22120%22%20height%3D%22120%22%20rx%3D%2228%22%20fill%3D%22%23060807%22/%3E%3Crect%20x%3D%2213%22%20y%3D%2213%22%20width%3D%2228%22%20height%3D%2228%22%20rx%3D%227%22%20fill%3D%22none%22%20stroke%3D%22%23efece5%22%20stroke-opacity%3D%22.25%22%20stroke-width%3D%222%22/%3E%3Crect%20x%3D%2246%22%20y%3D%2213%22%20width%3D%2228%22%20height%3D%2228%22%20rx%3D%227%22%20fill%3D%22none%22%20stroke%3D%22%23efece5%22%20stroke-opacity%3D%22.25%22%20stroke-width%3D%222%22/%3E%3Crect%20x%3D%2213%22%20y%3D%2246%22%20width%3D%2228%22%20height%3D%2228%22%20rx%3D%227%22%20fill%3D%22none%22%20stroke%3D%22%23efece5%22%20stroke-opacity%3D%22.25%22%20stroke-width%3D%222%22/%3E%3Crect%20x%3D%2213%22%20y%3D%2279%22%20width%3D%2228%22%20height%3D%2228%22%20rx%3D%227%22%20fill%3D%22%23efece5%22/%3E%3Crect%20x%3D%2246%22%20y%3D%2279%22%20width%3D%2228%22%20height%3D%2228%22%20rx%3D%227%22%20fill%3D%22%23efece5%22/%3E%3Crect%20x%3D%2279%22%20y%3D%2279%22%20width%3D%2228%22%20height%3D%2228%22%20rx%3D%227%22%20fill%3D%22%23efece5%22/%3E%3Crect%20x%3D%2246%22%20y%3D%2246%22%20width%3D%2228%22%20height%3D%2228%22%20rx%3D%227%22%20fill%3D%22%23efece5%22/%3E%3Crect%20x%3D%2279%22%20y%3D%2246%22%20width%3D%2228%22%20height%3D%2228%22%20rx%3D%227%22%20fill%3D%22%23efece5%22/%3E%3Crect%20x%3D%2279%22%20y%3D%225%22%20width%3D%2228%22%20height%3D%2228%22%20rx%3D%227%22%20fill%3D%22%23c4f25a%22/%3E%3C/svg%3E">
 <link rel="preload" as="image" href="assets/img/hero.jpg">
 <style>
   :root{
@@ -54,7 +54,9 @@
   .nav.zicht{transform:translate(-50%,0)}
   .nav.licht{background:rgba(239,236,229,.72);color:var(--ink);border-color:rgba(0,0,0,.08)}
   .logo{font-weight:700;letter-spacing:-.04em;font-size:1.15rem;display:flex;align-items:center;gap:9px}
-  .logo b{width:9px;height:9px;border-radius:50%;background:var(--lime);box-shadow:0 0 14px var(--lime)}
+  .merkicoon{width:24px;height:24px;overflow:visible}
+  .merkicoon .valt{animation:valt 3.2s var(--ease) infinite}
+  @keyframes valt{0%,55%{transform:translateY(0)}65%{transform:translateY(-14px);opacity:0}75%{transform:translateY(-14px);opacity:0}90%,100%{transform:translateY(0);opacity:1}}
   .nav ul{display:flex;gap:28px;list-style:none;font-size:.9rem}
   .taal{display:flex;align-items:center;gap:6px;margin-right:6px}
   .taal button{background:none;border:0;color:inherit;font:inherit;letter-spacing:inherit;cursor:pointer;opacity:.45;padding:6px 2px;transition:opacity .2s}
@@ -266,13 +268,13 @@
   <div>
     <div class="teller" id="lteller">000</div>
     <div class="balk"><i id="lbalk"></i></div>
-    <div class="merk" style="margin-top:22px"><span data-merk="upper">NACHTWERK</span></div>
+    <div class="merk" style="margin-top:22px"><span data-merk="upper">PIXELBUILD</span></div>
   </div>
 </div>
 
 <!-- NAV -->
 <nav class="nav" id="nav">
-  <a href="#" class="logo" data-cursor="groot"><b></b><span data-merk="lower">nachtwerk</span></a>
+  <a href="#" class="logo" data-cursor="groot"><svg class="merkicoon" viewBox="0 0 120 120" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-opacity=".3" stroke-width="3"><rect x="13" y="13" width="28" height="28" rx="7"/><rect x="46" y="13" width="28" height="28" rx="7"/><rect x="13" y="46" width="28" height="28" rx="7"/></g><g fill="currentColor"><rect x="13" y="79" width="28" height="28" rx="7"/><rect x="46" y="79" width="28" height="28" rx="7"/><rect x="79" y="79" width="28" height="28" rx="7"/><rect x="46" y="46" width="28" height="28" rx="7"/><rect x="79" y="46" width="28" height="28" rx="7"/></g><rect class="valt" x="79" y="5" width="28" height="28" rx="7" fill="#c4f25a"/></svg><span data-merk="lower">pixelbuild</span></a>
   <ul>
     <li><a href="#werk">Werk</a></li>
     <li><a href="#diensten">Diensten</a></li>
@@ -461,7 +463,7 @@
     <div class="groot-tekst op">Laten we iets<br>bouwen dat <em>opvalt.</em></div>
     <div class="contact-grid">
       <div class="op">
-        <a class="mail" id="mailLink" href="#">hallo@nachtwerk.studio</a>
+        <a class="mail" id="mailLink" href="#">hallo@pixelbuild.studio</a>
         <div class="details">
           <div><span class="mono">Reactie</span><b>Binnen 24 uur</b></div>
           <div><span class="mono">Werkgebied</span><b>Nederland &amp; België</b></div>
@@ -482,14 +484,14 @@
         <button class="knop lime groot magneet" type="submit" style="justify-content:center">Verstuur aanvraag <span class="pijl">→</span></button>
       </form>
     </div>
-    <div class="woordmerk" id="woordmerk" aria-hidden="true" data-merk="lower">nachtwerk</div>
-    <footer class="mono"><span>© <span id="jaar"></span> <span data-merk="title">Nachtwerk</span></span><span>Gebouwd na zonsondergang</span><a href="#hero">Terug naar boven ↑</a></footer>
+    <div class="woordmerk" id="woordmerk" aria-hidden="true" data-merk="lower">pixelbuild</div>
+    <footer class="mono"><span>© <span id="jaar"></span> <span data-merk="title">Pixelbuild</span></span><span>Gebouwd na zonsondergang</span><a href="#hero">Terug naar boven ↑</a></footer>
   </div>
 </section>
 
 <script>
 /* ======= Instellingen: pas hier je gegevens aan ======= */
-const STUDIO = { naam: 'Nachtwerk', email: 'hallo@nachtwerk.studio', tijdzone: 'Europe/Sofia', stad: 'Sofia' };
+const STUDIO = { naam: 'Pixelbuild', email: 'hallo@pixelbuild.studio', tijdzone: 'Europe/Sofia', stad: 'Sofia' };
 </script>
 
 <script>

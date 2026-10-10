@@ -60,7 +60,7 @@ Het enige wat dit tegenhoudt is te weinig bellen.
 - **Een Nederlands telefoonnummer** (een VoIP-nummer, een paar euro per maand) verhoogt de kans dat ze opnemen flink. Neem het zodra de eerste klant betaalt.
 
 ## Je eigen studiosite: `site/`
-Een filmische site voor je eigen webdesignbedrijf (werknaam **Nachtwerk**), met:
+Een filmische site voor je eigen webdesignbedrijf (**Pixelbuild**), met:
 - een preloader en een eigen cursor;
 - een live 3D-object in de hero (three.js);
 - een deeltjes-animatie (idee → ontwerp → website);
@@ -70,6 +70,6 @@ Een filmische site voor je eigen webdesignbedrijf (werknaam **Nachtwerk**), met:
 - **Foto's** (`site/assets/img/`) zijn zelfgemaakte 3D-renders, dus geen rechtenproblemen. De laptops en telefoons tonen je eigen demo's.
 - **Talen:** de site is tweetalig (NL/EN), met een wisselknop in het menu. Nederlandse browsers krijgen standaard Nederlands, alle andere Engels. Een directe link naar een taal maak je met `#en` of `#nl` achter de URL. Teksten staan in de `EN`-lijst in `site/index.html`.
 - **Logo's:** vijf naam- en logorichtingen staan in `site/assets/logos/`, met een overzicht in `logo-overzicht.png`. Er zijn donkere en lichte versies plus app-iconen, en de letters zijn omgezet naar vectorvormen. Je maakt ze opnieuw met `python3 tools/logos.py`.
-- **Naam en e-mail aanpassen:** zet je e-mailadres in `STUDIO` onderaan `site/index.html` (zoek op `hallo@nachtwerk.studio`). Een andere naam stel je in op één plek: `naam` in `STUDIO`.
+- **Naam en e-mail aanpassen:** zet je e-mailadres in `STUDIO` onderaan `site/index.html` (zoek op `hallo@pixelbuild.studio`). Een andere naam stel je in op één plek: `naam` in `STUDIO`.
 - **Online zetten:** sleep de hele map `Verkoop` (of alleen `site/` + `demos/out/`) naar Netlify. De werk-kaarten linken naar `../demos/out/...`.
 - **Lokaal bekijken:** `python3 -m http.server` in de map `Verkoop`, en open dan http://localhost:8000/site/ (het 3D-script werkt niet via dubbelklikken op het bestand).

@@ -54,10 +54,21 @@ def merk(naam, fg, accent, bg):
     if naam == "umbralight":
         return (f'<circle cx="66" cy="54" r="40" fill="none" stroke="{accent}" stroke-width="6"/>'
                 f'<circle cx="58" cy="62" r="38" fill="{fg if bg == PAPER else bg}" stroke="{fg}" stroke-width="{0 if bg == PAPER else 3}"/>')
+    if naam == "pixelbuild":
+        # a staircase of pixels being built; the last (accent) pixel drops into place
+        cel = lambda k, r: (13 + k * 33, 13 + r * 33)
+        vol = [(0, 2), (1, 2), (2, 2), (1, 1), (2, 1)]          # (column, row)
+        leeg = [(0, 0), (1, 0), (0, 1)]
+        out = "".join(f'<rect x="{cel(k, r)[0]}" y="{cel(k, r)[1]}" width="28" height="28" rx="7" fill="none" '
+                      f'stroke="{fg}" stroke-opacity=".25" stroke-width="2"/>' for k, r in leeg)
+        out += "".join(f'<rect x="{cel(k, r)[0]}" y="{cel(k, r)[1]}" width="28" height="28" rx="7" fill="{fg}"/>' for k, r in vol)
+        x, y = cel(2, 0)
+        return out + f'<rect x="{x}" y="{y - 8}" width="28" height="28" rx="7" fill="{accent}"/>'
     raise ValueError(naam)
 
 
 STIJL = {  # font, size, tracking (em), uppercase
+    "pixelbuild": ("InterDisplay-Bold.otf", 64, -0.045, False),
     "duskform": ("InterDisplay-SemiBold.otf", 66, -0.045, False),
     "nachtwerk": ("InterDisplay-Bold.otf", 64, -0.05, False),
     "lateform": ("Inter-Medium.otf", 44, 0.2, True),
