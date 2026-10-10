@@ -15,6 +15,7 @@
 | `tools/lead_scanner.py` | Beoordeelt websites, haalt openbare e-mail/telefoon op en zet de beste kansen bovenaan, met **verkooppunten** voor in je gesprek. |
 | `tools/maak_demos.py` | Maakt in één keer een **persoonlijke demowebsite per lead** (met hun naam en plaats). |
 | `demos/template-modern/` | Demo-ontwerp 1: licht en fris, met offerteformulier (voor de meeste hoveniers). |
+| `demos/template-cinematic/` | **Standaard.** Filmische scroll-site: woorden die verschijnen, een deeltjes-animatie (boom → bouwtekening → tuin), zijwaarts schuivende panelen en een tekening die zichzelf tekent. Zet een `hero.jpg` (foto van de klant) naast de pagina en die wordt automatisch de achtergrond van de hero. |
 | `demos/template-premium/` | Demo-ontwerp 2: luxe uitstraling (voor tuinontwerp en grotere bedrijven). |
 | `demos/out/` | 43 kant-en-klare demo's. |
 | `outreach/belscript.md` | Belscript met bezwaren en antwoorden. |

@@ -1,0 +1,565 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{BEDRIJFSNAAM}} | Tuinen in {{REGIO}}</title>
+<meta name="description" content="{{BEDRIJFSNAAM}} ontwerpt, legt aan en onderhoudt tuinen in {{REGIO}}. Vraag een vrijblijvende offerte aan.">
+<style>
+  :root{
+    --ink:#0a0f0c; --ink2:#111a14; --paper:#f4f3ee; --mute:#8b948d;
+    --lime:#b8f04a; --lime2:#8fd12a; --sun:#f3a35c; --line:rgba(255,255,255,.12);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--ink);color:#fff;font-family:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 24px}
+
+  /* ---------- NAV ---------- */
+  .nav{position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:50;width:min(1120px,calc(100% - 24px));
+    display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px 10px 10px 20px;border-radius:14px;
+    background:rgba(12,18,14,.55);backdrop-filter:blur(14px) saturate(140%);-webkit-backdrop-filter:blur(14px) saturate(140%);
+    border:1px solid var(--line);transition:background .4s}
+  .nav.licht{background:rgba(244,243,238,.75);color:var(--ink);border-color:rgba(0,0,0,.08)}
+  .logo{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:-.01em;white-space:nowrap}
+  .logo i{width:22px;height:22px;border-radius:6px;background:var(--lime);display:grid;place-items:center}
+  .logo i::before{content:"";width:8px;height:12px;border-radius:8px 8px 8px 0;background:var(--ink);transform:rotate(-35deg)}
+  .nav ul{display:flex;gap:26px;list-style:none;font-size:.9rem;opacity:.85}
+  .nav ul a:hover{opacity:.6}
+  .nav .acties{display:flex;gap:8px}
+  .knop{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:9px;font-weight:600;font-size:.9rem;border:1px solid transparent;cursor:pointer;transition:.25s;white-space:nowrap}
+  .knop.lime{background:var(--lime);color:var(--ink)}
+  .knop.lime:hover{background:#d2ff7a}
+  .knop.rand{border-color:currentColor;opacity:.9}
+  .knop.groot{padding:15px 24px;font-size:1rem;border-radius:11px}
+
+  /* ---------- HERO ---------- */
+  .hero{position:relative;height:200vh}
+  .hero .vast{position:sticky;top:0;height:100vh;overflow:hidden}
+  .scene{position:absolute;inset:0;transform-origin:60% 60%}
+  .scene svg .laag{transform-box:fill-box;transform-origin:center bottom}
+  .scene svg{position:absolute;inset:0;width:100%;height:100%}
+  .laag{will-change:transform}
+  .hero-foto{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity .8s}
+  .hero-foto.ok{opacity:1}
+  .hero-tekst{position:absolute;left:0;right:0;bottom:12vh;text-align:center;padding:0 20px}
+  .hero h1{font-size:clamp(2.4rem,6.4vw,5.6rem);line-height:1.02;letter-spacing:-.035em;font-weight:600;max-width:1000px;margin:0 auto}
+  .woord{display:inline-block;opacity:0;transform:translateY(.35em);filter:blur(8px);transition:opacity .9s,transform .9s,filter .9s}
+  .woord.aan{opacity:1;transform:none;filter:none}
+  .hero .onder{margin-top:26px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap;opacity:0;transition:opacity 1s 1.4s}
+  .hero .onder.aan{opacity:1}
+  .scroll-hint{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;opacity:.6}
+  .scroll-hint::after{content:"";display:block;width:1px;height:28px;background:#fff;margin:8px auto 0;animation:hint 1.8s infinite}
+  @keyframes hint{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+  /* ---------- PARTICLES ---------- */
+  .deeltjes{position:relative;height:320vh;background:var(--ink)}
+  .deeltjes .vast{position:sticky;top:0;height:100vh;overflow:hidden}
+  #pc{position:absolute;inset:0;width:100%;height:100%}
+  .deeltjes .ster{position:absolute;inset:0;background:radial-gradient(1px 1px at 20% 30%,#fff8,transparent),radial-gradient(1px 1px at 70% 20%,#fff6,transparent),radial-gradient(1px 1px at 40% 80%,#fff5,transparent),radial-gradient(1px 1px at 85% 65%,#fff7,transparent),radial-gradient(1px 1px at 10% 70%,#fff4,transparent)}
+  .p-tekst{position:absolute;left:0;right:0;bottom:14vh;text-align:center;font-size:clamp(1.6rem,3.6vw,3rem);letter-spacing:-.03em;font-weight:500;padding:0 20px;pointer-events:none}
+  .p-tekst span{position:absolute;left:0;right:0;opacity:0;transition:opacity .6s,transform .6s;transform:translateY(14px)}
+  .p-tekst span.aan{opacity:1;transform:none}
+  .p-tekst em{font-style:normal;color:var(--lime)}
+  .label{position:absolute;top:110px;left:24px;font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--mute);display:flex;gap:10px;align-items:center}
+  .label::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--lime);box-shadow:0 0 12px var(--lime)}
+
+  /* ---------- WHITE CURTAIN + WORD FILL ---------- */
+  .gordijn{position:relative;background:var(--paper);color:var(--ink);border-radius:28px 28px 0 0;margin-top:-6vh;z-index:2}
+  .vul{position:relative;height:220vh}
+  .vul .vast{position:sticky;top:0;height:100vh;display:flex;align-items:center}
+  .vul p{font-size:clamp(1.8rem,4.4vw,3.9rem);line-height:1.12;letter-spacing:-.035em;font-weight:500;max-width:1100px}
+  .vul p span{color:#c9c9c1;transition:color .25s}
+  .vul p span.aan{color:var(--ink)}
+  .vul p span.groen.aan{color:var(--lime2)}
+
+  /* ---------- HORIZONTAL PANELS ---------- */
+  .horizontaal{position:relative;height:400vh;background:var(--paper);color:var(--ink)}
+  .horizontaal .vast{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;flex-direction:column;justify-content:center}
+  .h-kop{padding:0 24px;max-width:1240px;margin:0 auto 34px;width:100%;display:flex;justify-content:space-between;align-items:end;gap:20px}
+  .h-kop h2{font-size:clamp(1.8rem,3.4vw,3rem);letter-spacing:-.035em;font-weight:600;line-height:1.05}
+  .teller{font-variant-numeric:tabular-nums;color:var(--mute);font-size:.9rem}
+  .spoor{display:flex;gap:22px;padding-left:max(24px,calc((100vw - 1240px)/2 + 24px));will-change:transform}
+  .paneel{flex:0 0 min(78vw,560px);height:min(62vh,520px);border-radius:22px;position:relative;overflow:hidden;color:#fff;display:flex;flex-direction:column;justify-content:flex-end;padding:30px}
+  .paneel::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,.55))}
+  .paneel > *{position:relative;z-index:1}
+  .paneel .nr{position:absolute;top:24px;left:30px;font-size:.8rem;letter-spacing:.2em;opacity:.8}
+  .paneel h3{font-size:clamp(1.5rem,2.4vw,2.1rem);letter-spacing:-.02em;margin-bottom:8px}
+  .paneel p{opacity:.85;max-width:420px}
+  .paneel svg.bg{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+  .pa{background:linear-gradient(160deg,#f6b26b,#b85b2c 55%,#3b2316)}
+  .pb{background:linear-gradient(160deg,#9fd08a,#3f7f3a 55%,#16301a)}
+  .pc{background:linear-gradient(160deg,#cdbb98,#8a6a43 55%,#2f2418)}
+  .pd{background:linear-gradient(160deg,#7fb8a6,#2e6a58 55%,#0f2a22)}
+  .pe{background:linear-gradient(160deg,#2a3a30,#0f1712)}
+
+  /* ---------- BLUEPRINT ---------- */
+  .blauwdruk{position:relative;height:260vh;background:var(--ink)}
+  .blauwdruk .vast{position:sticky;top:0;height:100vh;display:grid;grid-template-columns:1fr 1.2fr;align-items:center;gap:40px;max-width:1240px;margin:0 auto;padding:0 24px}
+  .blauwdruk h2{font-size:clamp(1.9rem,3.6vw,3.2rem);letter-spacing:-.035em;line-height:1.05;font-weight:600;margin-bottom:18px}
+  .blauwdruk p{color:var(--mute);max-width:440px}
+  .plan{width:100%;aspect-ratio:4/3;border:1px solid var(--line);border-radius:18px;background:
+      linear-gradient(var(--line) 1px,transparent 1px) 0 0/40px 40px,
+      linear-gradient(90deg,var(--line) 1px,transparent 1px) 0 0/40px 40px,#0d1611}
+  .plan svg{width:100%;height:100%}
+  .plan .t{fill:none;stroke:var(--lime);stroke-width:1.5;stroke-dasharray:1;stroke-dashoffset:1}
+  .plan .z{fill:none;stroke:#ffffff55;stroke-width:1;stroke-dasharray:1;stroke-dashoffset:1}
+  .plan text{fill:var(--mute);font-size:11px;letter-spacing:.12em;opacity:0;transition:opacity .5s}
+  .plan text.aan{opacity:1}
+
+  /* ---------- GREEN GRID + SCRAMBLE ---------- */
+  .raster{position:relative;min-height:100vh;display:grid;place-items:center;text-align:center;overflow:hidden;
+    background:linear-gradient(rgba(255,255,255,.07) 1px,transparent 1px) 0 0/56px 56px,
+      linear-gradient(90deg,rgba(255,255,255,.07) 1px,transparent 1px) 0 0/56px 56px,
+      radial-gradient(ellipse at center,#1f6b4f,#0f3b2c 70%)}
+  .raster small{display:block;font-size:.8rem;letter-spacing:.25em;text-transform:uppercase;opacity:.7;margin-bottom:18px}
+  .scramble{font-size:clamp(3.4rem,13vw,11rem);font-weight:700;letter-spacing:-.04em;line-height:.9;font-variant-numeric:tabular-nums}
+  .raster p{max-width:520px;margin:26px auto 0;opacity:.8;padding:0 20px}
+
+  /* ---------- MAP ---------- */
+  .kaart{position:relative;padding:130px 0;background:var(--ink);overflow:hidden}
+  .kaart-grid{display:grid;grid-template-columns:1fr 1.3fr;gap:50px;align-items:center}
+  .kaart h2{font-size:clamp(1.9rem,3.6vw,3.2rem);letter-spacing:-.035em;line-height:1.05;font-weight:600;margin-bottom:18px}
+  .kaart p{color:var(--mute);max-width:440px}
+  .cijfers{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px}
+  .cijfers div{border-top:1px solid var(--line);padding-top:14px}
+  .cijfers b{display:block;font-size:2.2rem;letter-spacing:-.03em;font-weight:600}
+  .cijfers span{color:var(--mute);font-size:.85rem}
+  #kaartSvg{width:100%;height:auto}
+  #kaartSvg .lijn{stroke:var(--lime);stroke-width:1;fill:none;opacity:.7;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 1.6s ease}
+  #kaartSvg.aan .lijn{stroke-dashoffset:0}
+  #kaartSvg .stip{fill:var(--lime);opacity:0;transition:opacity .5s}
+  #kaartSvg.aan .stip{opacity:1}
+
+  /* ---------- TRUST ---------- */
+  .vertrouwen{background:var(--paper);color:var(--ink);padding:130px 0;border-radius:28px 28px 0 0;position:relative;z-index:2}
+  .vertrouwen h2{text-align:center;font-size:clamp(1.8rem,3.6vw,3.1rem);letter-spacing:-.035em;font-weight:500;line-height:1.1;margin-bottom:60px}
+  .vertrouwen h2 span{color:#a9a9a0}
+  .reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .review{background:#fff;border-radius:18px;padding:28px;border:1px solid #e6e4dc;opacity:0;transform:translateY(30px);transition:.8s}
+  .review.aan{opacity:1;transform:none}
+  .review .s{color:#e8a317;letter-spacing:3px;margin-bottom:12px}
+  .review p{font-size:1.05rem;line-height:1.5;margin-bottom:16px}
+  .review small{color:var(--mute)}
+  .demo-noot{text-align:center;color:var(--mute);font-size:.85rem;margin-top:22px}
+
+  /* ---------- CTA / FORM ---------- */
+  .cta{background:var(--paper);color:var(--ink);padding:40px 0 130px}
+  .cta-kaart{background:var(--ink);color:#fff;border-radius:28px;padding:clamp(28px,5vw,64px);display:grid;grid-template-columns:1fr 1fr;gap:50px;position:relative;overflow:hidden}
+  .cta-kaart::before{content:"";position:absolute;width:520px;height:520px;right:-160px;top:-200px;border-radius:50%;background:radial-gradient(circle,#b8f04a33,transparent 65%)}
+  .cta h2{font-size:clamp(2rem,4vw,3.4rem);letter-spacing:-.035em;line-height:1.02;font-weight:600;margin-bottom:18px;position:relative}
+  .cta .gegevens{margin-top:28px;display:grid;gap:10px;color:#cfd6d0}
+  form{display:grid;gap:12px;position:relative}
+  .rij{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  input,select,textarea{width:100%;padding:14px 16px;border-radius:11px;border:1px solid var(--line);background:rgba(255,255,255,.05);color:#fff;font:inherit}
+  select option{color:#000}
+  input::placeholder,textarea::placeholder{color:#8b948d}
+  input:focus,select:focus,textarea:focus{outline:1px solid var(--lime);border-color:transparent}
+  .bedankt{display:none;position:relative;align-self:center}
+  footer{background:var(--paper);color:var(--mute);font-size:.85rem;padding:0 0 40px}
+  footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;border-top:1px solid #dddbd2;padding-top:26px}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media(max-width:900px){
+    .nav ul,.nav .knop.rand{display:none}
+    .blauwdruk .vast{grid-template-columns:1fr;align-content:center;gap:24px}
+    .kaart-grid,.cta-kaart{grid-template-columns:1fr}
+    .reviews{grid-template-columns:1fr}
+    .label{top:92px}
+  }
+  @media(max-width:520px){.rij{grid-template-columns:1fr}.cijfers b{font-size:1.7rem}}
+  @media(prefers-reduced-motion:reduce){
+    .woord,.p-tekst span,.review{transition:none}
+    html{scroll-behavior:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <a href="#" class="logo"><i></i>{{BEDRIJFSNAAM}}</a>
+  <ul>
+    <li><a href="#aanpak">Aanpak</a></li>
+    <li><a href="#diensten">Diensten</a></li>
+    <li><a href="#ontwerp">Ontwerp</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+  </ul>
+  <div class="acties">
+    <a href="tel:{{TELEFOON_LINK}}" class="knop rand">Bel ons</a>
+    <a href="#offerte" class="knop lime">Offerte</a>
+  </div>
+</nav>
+
+<!-- 1. HERO: cinematic sunset scene with parallax -->
+<section class="hero" id="top">
+  <div class="vast">
+    <div class="scene" id="scene">
+      <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <defs>
+          <linearGradient id="lucht" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#2b2f4a"/><stop offset=".38" stop-color="#9a6a7a"/>
+            <stop offset=".62" stop-color="#f0a36a"/><stop offset=".78" stop-color="#ffd59a"/><stop offset="1" stop-color="#f6b878"/>
+          </linearGradient>
+          <radialGradient id="zon" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#fff6d8"/><stop offset=".25" stop-color="#ffd890" stop-opacity=".9"/><stop offset="1" stop-color="#ffb060" stop-opacity="0"/></radialGradient>
+          <linearGradient id="grond" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a2a22"/><stop offset="1" stop-color="#0d0a08"/></linearGradient>
+          <linearGradient id="pad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e7b27c" stop-opacity=".55"/><stop offset="1" stop-color="#5a3a26" stop-opacity=".9"/></linearGradient>
+          <linearGradient id="donker" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#0a0f0c"/></linearGradient>
+        </defs>
+        <rect width="1600" height="900" fill="url(#lucht)"/>
+        <g class="laag" data-snelheid="0.05"><circle cx="980" cy="560" r="300" fill="url(#zon)"/><circle cx="980" cy="560" r="46" fill="#fff4d6"/></g>
+        <g class="laag" data-snelheid="0.12" fill="#7d5a62" opacity=".55"><path d="M0 600 C200 540 380 560 560 580 S900 530 1100 560 1450 540 1600 570 V900 H0Z"/></g>
+        <g class="laag" data-snelheid="0.2" fill="#4a3239" opacity=".85">
+          <path d="M0 640 C240 600 420 630 640 640 S1000 600 1250 625 1500 610 1600 620 V900 H0Z"/>
+          <g><ellipse cx="190" cy="575" rx="70" ry="80"/><rect x="185" y="600" width="9" height="60"/><ellipse cx="1350" cy="560" rx="90" ry="100"/><rect x="1345" y="600" width="10" height="60"/><ellipse cx="1470" cy="590" rx="55" ry="60"/></g>
+        </g>
+        <g class="laag" data-snelheid="0.32">
+          <path d="M0 690 C300 670 600 680 800 690 S1300 670 1600 685 V900 H0Z" fill="url(#grond)"/>
+          <path d="M700 690 L900 690 L1180 900 L420 900Z" fill="url(#pad)"/>
+          <g stroke="#e9b886" stroke-opacity=".35" stroke-width="2"><path d="M760 705 L840 705"/><path d="M730 730 L870 730"/><path d="M690 765 L910 765"/><path d="M640 810 L960 810"/><path d="M570 870 L1030 870"/></g>
+        </g>
+        <g class="laag" data-snelheid="0.5" fill="#120c0a">
+          <path d="M0 740 Q60 690 120 720 T250 715 T380 735 T520 725 L560 760 L560 900 L0 900Z"/>
+          <path d="M1040 760 L1080 725 Q1160 690 1240 718 T1380 712 T1500 728 T1600 720 V900 H1040Z"/>
+          <g><ellipse cx="90" cy="560" rx="120" ry="150"/><rect x="80" y="620" width="18" height="140"/><ellipse cx="1520" cy="540" rx="140" ry="170"/><rect x="1510" y="620" width="20" height="160"/></g>
+          <g stroke="#120c0a" stroke-width="5"><path d="M300 700 V760 M340 698 V762 M380 702 V764 M420 700 V766 M460 704 V768 M290 718 H470 M290 742 H470"/></g>
+        </g>
+        <rect width="1600" height="900" fill="url(#donker)"/>
+      </svg>
+      <div class="hero-foto" id="heroFoto"></div>
+    </div>
+    <div class="hero-tekst">
+      <h1 id="heroTitel">Wij maken tuinen die het hele jaar blijven verrassen.</h1>
+      <div class="onder" id="heroKnoppen">
+        <a href="#offerte" class="knop lime groot">Plan een gratis adviesgesprek</a>
+        <a href="#aanpak" class="knop rand groot">Bekijk onze aanpak</a>
+      </div>
+    </div>
+    <div class="scroll-hint">Scroll</div>
+  </div>
+</section>
+
+<!-- 2. PARTICLES: tree -> blueprint -> garden -->
+<section class="deeltjes" id="aanpak">
+  <div class="vast">
+    <div class="ster"></div>
+    <canvas id="pc"></canvas>
+    <div class="label">Onze aanpak · {{PLAATS}}</div>
+    <div class="p-tekst">
+      <span data-van="0" data-tot=".3">Alles begint met <em>wat er al groeit.</em></span>
+      <span data-van=".33" data-tot=".63">Daarna tekenen we <em>elke centimeter</em> uit.</span>
+      <span data-van=".66" data-tot="1.01">En maken we het <em>werkelijkheid.</em></span>
+    </div>
+  </div>
+</section>
+
+<!-- 3. WHITE CURTAIN with scroll-filled text -->
+<div class="gordijn">
+  <section class="vul">
+    <div class="vast wrap">
+      <p id="vulTekst">Stel je een tuin voor die <b class="groen">naadloos</b> aansluit op je huis. Waar het terras, het groen en het licht samenkomen. Ontworpen, aangelegd en onderhouden door <b class="groen">één vast team</b> uit {{PLAATS}}.</p>
+    </div>
+  </section>
+
+  <!-- 4. HORIZONTAL SERVICES -->
+  <section class="horizontaal" id="diensten">
+    <div class="vast">
+      <div class="h-kop"><h2>Eén team.<br>Van schets tot onderhoud.</h2><div class="teller" id="teller">01 / 05</div></div>
+      <div class="spoor" id="spoor">
+        <article class="paneel pa"><span class="nr">01</span>
+          <svg class="bg" viewBox="0 0 560 520" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><circle cx="420" cy="170" r="60" fill="#ffe2b0" opacity=".8"/><path d="M0 380 Q140 330 280 360 T560 340 V520 H0Z" fill="#00000040"/></svg>
+          <h3>Tuinontwerp</h3><p>Een ontwerp op maat met beplantingsplan en 3D-visualisatie, zodat u vooraf precies weet wat u krijgt.</p></article>
+        <article class="paneel pb"><span class="nr">02</span>
+          <svg class="bg" viewBox="0 0 560 520" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><g fill="#0b2410" opacity=".55"><ellipse cx="120" cy="250" rx="90" ry="110"/><ellipse cx="300" cy="220" rx="120" ry="140"/><ellipse cx="470" cy="260" rx="80" ry="100"/></g></svg>
+          <h3>Tuinaanleg</h3><p>Grondwerk, beplanting, gazon en verlichting, compleet uitgevoerd door ons eigen team.</p></article>
+        <article class="paneel pc"><span class="nr">03</span>
+          <svg class="bg" viewBox="0 0 560 520" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><g stroke="#ffffff30" stroke-width="2"><path d="M0 300 H560 M0 360 H560 M0 420 H560 M0 480 H560 M90 300 V520 M200 300 V520 M310 300 V520 M420 300 V520"/></g></svg>
+          <h3>Bestrating &amp; terras</h3><p>Keramiek, natuursteen of gebakken klinkers, strak en vakkundig gelegd.</p></article>
+        <article class="paneel pd"><span class="nr">04</span>
+          <svg class="bg" viewBox="0 0 560 520" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><ellipse cx="280" cy="360" rx="200" ry="60" fill="#ffffff22"/><ellipse cx="280" cy="360" rx="120" ry="34" fill="#ffffff18"/></svg>
+          <h3>Water &amp; vijvers</h3><p>Vijvers, waterornamenten en slimme beregening die zichzelf regelt.</p></article>
+        <article class="paneel pe"><span class="nr">05</span>
+          <svg class="bg" viewBox="0 0 560 520" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><g fill="#b8f04a"><circle cx="100" cy="120" r="3"/><circle cx="420" cy="90" r="2"/><circle cx="300" cy="200" r="3"/><circle cx="480" cy="260" r="2"/></g></svg>
+          <h3>Onderhoud</h3><p>Een onderhoudsabonnement dat uw tuin in elk seizoen op zijn mooist houdt.</p></article>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- 5. BLUEPRINT drawing itself -->
+<section class="blauwdruk" id="ontwerp">
+  <div class="vast">
+    <div>
+      <div class="label" style="position:static;margin-bottom:22px">Ontwerp</div>
+      <h2>Eerst op papier.<br>Pas dan de schop in de grond.</h2>
+      <p>Elk project begint met een maatvoerd ontwerp. Zo weet u vooraf wat het wordt, wat het kost en hoe lang het duurt. Geen verrassingen.</p>
+    </div>
+    <div class="plan">
+      <svg viewBox="0 0 400 300" aria-label="Tuinplattegrond">
+        <rect class="t" pathLength="1" x="20" y="20" width="360" height="260" rx="4"/>
+        <rect class="t" pathLength="1" x="20" y="20" width="360" height="60"/>
+        <path class="z" pathLength="1" d="M20 50 H380"/>
+        <rect class="t" pathLength="1" x="40" y="96" width="130" height="90" rx="2"/>
+        <path class="z" pathLength="1" d="M40 118 H170 M40 140 H170 M40 162 H170 M72 96 V186 M105 96 V186 M138 96 V186"/>
+        <path class="t" pathLength="1" d="M170 140 C220 140 230 200 290 210 S360 250 370 270"/>
+        <circle class="t" pathLength="1" cx="300" cy="120" r="32"/>
+        <circle class="t" pathLength="1" cx="340" cy="190" r="18"/>
+        <circle class="t" pathLength="1" cx="70" cy="240" r="22"/>
+        <ellipse class="t" pathLength="1" cx="210" cy="245" rx="55" ry="22"/>
+        <path class="z" pathLength="1" d="M200 96 H260 M200 104 H250 M200 112 H255"/>
+        <text x="44" y="92" data-op=".35">TERRAS 32 M²</text>
+        <text x="272" y="166" data-op=".55">BOOM</text>
+        <text x="180" y="280" data-op=".75">VIJVER</text>
+        <text x="26" y="40" data-op=".2">WONING</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- 6. GREEN GRID + SCRAMBLE -->
+<section class="raster">
+  <div>
+    <small>Dat is het verschil van</small>
+    <div class="scramble" id="scramble" data-woord="VAKWERK">VAKWERK</div>
+    <p>{{JAREN}}+ jaar ervaring, een vaste prijs vooraf en garantie op de aanleg.</p>
+  </div>
+</section>
+
+<!-- 7. REGION MAP -->
+<section class="kaart">
+  <div class="wrap kaart-grid">
+    <div>
+      <div class="label" style="position:static;margin-bottom:22px">Werkgebied</div>
+      <h2>Thuis in {{REGIO}}.</h2>
+      <p>Wij kennen de grond, het klimaat en de buurten. Daarom weten we wat hier groeit en wat blijft staan.</p>
+      <div class="cijfers">
+        <div><b data-tel="{{JAREN}}">0</b><span>jaar ervaring</span></div>
+        <div><b>{{SCORE}}</b><span>klantwaardering</span></div>
+        <div><b>48u</b><span>reactietijd</span></div>
+      </div>
+    </div>
+    <svg id="kaartSvg" viewBox="0 0 600 420" aria-hidden="true"></svg>
+  </div>
+</section>
+
+<!-- 8. TRUST -->
+<section class="vertrouwen" id="reviews">
+  <div class="wrap">
+    <h2>Gekozen door huiseigenaren<br><span>die het in één keer goed willen.</span></h2>
+    <div class="reviews">
+      <div class="review"><div class="s">★★★★★</div><p>"Afspraken werden precies nagekomen en de tuin is prachtig geworden."</p><small>Voorbeeldreview · {{PLAATS}}</small></div>
+      <div class="review"><div class="s">★★★★★</div><p>"Duidelijke offerte, geen verrassingen achteraf. Echte vakmensen."</p><small>Voorbeeldreview · {{REGIO}}</small></div>
+      <div class="review"><div class="s">★★★★★</div><p>"Ons terras is strak gelegd en alles werd netjes opgeruimd."</p><small>Voorbeeldreview · {{PLAATS}}</small></div>
+    </div>
+    <p class="demo-noot">In de echte website komen hier uw eigen reviews van Google, Werkspot en Trustoo.</p>
+  </div>
+</section>
+
+<!-- 9. CTA -->
+<section class="cta" id="offerte">
+  <div class="wrap">
+    <div class="cta-kaart">
+      <div>
+        <h2>Laten we uw tuin samen bedenken.</h2>
+        <p style="color:#cfd6d0;position:relative">Vul het formulier in. Binnen 48 uur ontvangt u een reactie met een voorstel voor een vrijblijvend adviesgesprek.</p>
+        <div class="gegevens">
+          <a href="tel:{{TELEFOON_LINK}}">{{TELEFOON}}</a>
+          <a href="mailto:{{EMAIL}}">{{EMAIL}}</a>
+          <span>{{PLAATS}} en omgeving</span>
+        </div>
+      </div>
+      <form id="form">
+        <div class="rij"><input placeholder="Naam" required><input placeholder="Telefoon" type="tel" required></div>
+        <div class="rij"><input placeholder="E-mail" type="email" required><input placeholder="Postcode"></div>
+        <select><option>Complete tuinaanleg</option><option>Tuinontwerp</option><option>Bestrating / terras</option><option>Onderhoud</option><option>Iets anders</option></select>
+        <textarea rows="4" placeholder="Vertel kort over uw tuin en wensen"></textarea>
+        <button class="knop lime groot" type="submit">Verstuur aanvraag</button>
+      </form>
+      <div class="bedankt" id="bedankt"><h3 style="font-size:1.8rem;margin-bottom:8px">Bedankt! 🌱</h3><p style="color:#cfd6d0">We nemen binnen 48 uur contact met u op.</p></div>
+    </div>
+  </div>
+</section>
+
+<footer><div class="wrap"><span>© <span id="jaar"></span> {{BEDRIJFSNAAM}}</span><span>{{TELEFOON}} · {{EMAIL}}</span></div></footer>
+
+<script>
+(() => {
+  const rust = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const $ = s => document.querySelector(s);
+  const $$ = s => [...document.querySelectorAll(s)];
+  const klem = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+  const voortgang = el => { const r = el.getBoundingClientRect(); return klem(-r.top / (r.height - innerHeight)); };
+  $('#jaar').textContent = new Date().getFullYear();
+
+  // Optional real photo: drop hero.jpg next to this file and it is used automatically.
+  const foto = new Image();
+  foto.onload = () => { const f = $('#heroFoto'); f.style.backgroundImage = 'url(hero.jpg)'; f.classList.add('ok'); };
+  foto.src = 'hero.jpg';
+
+  // ---- Hero words ----
+  const titel = $('#heroTitel');
+  titel.innerHTML = titel.textContent.split(' ').map(w => `<span class="woord">${w}</span>`).join(' ');
+  $$('.woord').forEach((w, i) => setTimeout(() => w.classList.add('aan'), 250 + i * 110));
+  setTimeout(() => $('#heroKnoppen').classList.add('aan'), 50);
+
+  // ---- Fill text: split into word spans ----
+  const vul = $('#vulTekst');
+  const delen = [];
+  vul.childNodes.forEach(n => {
+    const groen = n.nodeType === 1;
+    n.textContent.split(/(\s+)/).forEach(t => { if (t.trim()) delen.push(`<span class="${groen ? 'groen' : ''}">${t}</span>`); else delen.push(t); });
+  });
+  vul.innerHTML = delen.join('');
+  const vulWoorden = [...vul.querySelectorAll('span')];
+
+  // ---- Particles ----
+  const cv = $('#pc'), ctx = cv.getContext('2d');
+  let W, H, dpr, deeltjes = [];
+  const N = innerWidth < 700 ? 1300 : 2600;
+  function vormBoom(n) { // tree silhouette: crown of blobs + trunk
+    const pts = [], blobs = [[0, -.18, .24], [-.17, -.05, .17], [.17, -.06, .18], [0, .02, .2], [-.08, -.3, .14], [.1, -.29, .15]];
+    while (pts.length < n) {
+      if (Math.random() < .12) { pts.push([(Math.random() - .5) * .05, .1 + Math.random() * .3]); continue; }
+      const x = (Math.random() - .5) * .8, y = (Math.random() - .5) * .8 - .1;
+      if (blobs.some(([bx, by, r]) => (x - bx) ** 2 + (y - by) ** 2 < r * r)) pts.push([x, y]);
+    }
+    return pts;
+  }
+  function vormPlan(n) { // garden blueprint: outlines sampled along lines and circles
+    const seg = [], pts = [];
+    const rect = (x, y, w, h) => { seg.push([x, y, x + w, y], [x + w, y, x + w, y + h], [x + w, y + h, x, y + h], [x, y + h, x, y]); };
+    rect(-.45, -.32, .9, .64); rect(-.45, -.32, .9, .14); rect(-.4, -.14, .32, .22);
+    for (let i = 1; i < 4; i++) seg.push([-.4 + i * .08, -.14, -.4 + i * .08, .08]);
+    const cirkels = [[.25, -.08, .08], [.33, .1, .05], [-.33, .2, .06], [.02, .2, .1]];
+    while (pts.length < n) {
+      if (Math.random() < .6) { const [a, b, c, d] = seg[(Math.random() * seg.length) | 0], t = Math.random(); pts.push([a + (c - a) * t, b + (d - b) * t]); }
+      else { const [cx, cy, r] = cirkels[(Math.random() * cirkels.length) | 0], t = Math.random() * 6.283; pts.push([cx + Math.cos(t) * r, cy + Math.sin(t) * r * (cy > .15 && cx < .1 && cx > -.1 ? .45 : 1)]); }
+    }
+    return pts;
+  }
+  function vormTuin(n) { // final: dense garden field - lawn, hedges, trees in perspective
+    const pts = [];
+    while (pts.length < n) {
+      const r = Math.random();
+      if (r < .45) { const x = (Math.random() - .5) * 1.1, y = .05 + Math.random() * .3; pts.push([x * (0.6 + y), y]); }
+      else if (r < .75) { const k = [-.35, 0, .35][(Math.random() * 3) | 0], a = Math.random() * 6.283, rr = Math.sqrt(Math.random()) * .11; pts.push([k + Math.cos(a) * rr, -.12 + Math.sin(a) * rr * 1.2]); }
+      else { const x = (Math.random() - .5) * 1.0; pts.push([x, .02 + Math.random() * .04]); }
+    }
+    return pts;
+  }
+  function init() {
+    dpr = Math.min(devicePixelRatio || 1, 2); W = cv.clientWidth; H = cv.clientHeight;
+    cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const a = vormBoom(N), b = vormPlan(N), c = vormTuin(N);
+    deeltjes = a.map((p, i) => ({ a: p, b: b[i], c: c[i], s: [(Math.random() - .5) * 2.4, (Math.random() - .5) * 2.4], ruis: Math.random() * 6.283, z: .4 + Math.random() * .9 }));
+  }
+  const ease = t => t < .5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2;
+  function tekenDeeltjes(p, tijd) {
+    ctx.clearRect(0, 0, W, H);
+    const S = Math.min(W, H) * 1.05, cx = W / 2, cy = H * .46;
+    // phases: scatter->tree (0-.15), tree (.15-.3), tree->plan (.3-.45), plan (.45-.6), plan->garden (.6-.78), garden
+    let van, naar, t;
+    if (p < .15) { van = 's'; naar = 'a'; t = p / .15; }
+    else if (p < .3) { van = 'a'; naar = 'a'; t = 0; }
+    else if (p < .45) { van = 'a'; naar = 'b'; t = (p - .3) / .15; }
+    else if (p < .6) { van = 'b'; naar = 'b'; t = 0; }
+    else if (p < .78) { van = 'b'; naar = 'c'; t = (p - .6) / .18; }
+    else { van = 'c'; naar = 'c'; t = 0; }
+    const e = ease(klem(t));
+    const draai = (p - .5) * .6;
+    for (const d of deeltjes) {
+      const A = d[van], B = d[naar];
+      let x = A[0] + (B[0] - A[0]) * e, y = A[1] + (B[1] - A[1]) * e;
+      const wiebel = Math.sin(tijd * .0012 + d.ruis) * .004 * (1 + Math.sin(e * Math.PI) * 6);
+      x += wiebel; y += Math.cos(tijd * .001 + d.ruis) * .003;
+      const xr = x * Math.cos(draai);
+      const px = cx + xr * S, py = cy + y * S;
+      const helder = Math.min(1, .7 + d.z * .35);
+      ctx.fillStyle = naar === 'b' || van === 'b' ? `rgba(184,240,74,${helder})` : `rgba(${200 + d.z * 40 | 0},${235},${170 + d.z * 50 | 0},${helder * .9})`;
+      const r = d.z * (W < 700 ? 1.8 : 2.2);
+      ctx.fillRect(px, py, r, r);
+    }
+  }
+
+  // ---- Map ----
+  const kaart = $('#kaartSvg');
+  (function maakKaart() {
+    const ns = 'http://www.w3.org/2000/svg';
+    let html = '';
+    for (let y = 20; y < 410; y += 14) for (let x = 20; x < 590; x += 14) {
+      const dx = (x - 300) / 260, dy = (y - 215) / 190;
+      if (dx * dx + dy * dy * 1.2 + Math.sin(x * .05) * .08 < 1) html += `<circle cx="${x}" cy="${y}" r="1.6" fill="#ffffff26"/>`;
+    }
+    const plekken = [[300, 210], [210, 150], [390, 140], [170, 270], [430, 280], [320, 330], [250, 90], [470, 200]];
+    plekken.forEach(([x, y], i) => { if (i) html += `<path class="lijn" pathLength="1" d="M300 210 Q${(300 + x) / 2} ${Math.min(y, 210) - 60} ${x} ${y}"/>`; });
+    plekken.forEach(([x, y], i) => html += `<circle class="stip" cx="${x}" cy="${y}" r="${i ? 4 : 7}" style="transition-delay:${.3 + i * .12}s"/>` + (i ? '' : `<circle cx="${x}" cy="${y}" r="16" fill="none" stroke="#b8f04a" opacity=".4"/>`));
+    kaart.innerHTML = html;
+  })();
+
+  // ---- Scramble ----
+  const scr = $('#scramble'), doel = scr.dataset.woord, tekens = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#%&';
+  let scrGedaan = false;
+  function scramble() {
+    if (scrGedaan) return; scrGedaan = true;
+    let f = 0; const tot = 38;
+    const tik = () => {
+      scr.textContent = doel.split('').map((c, i) => f / tot > i / doel.length + .15 ? c : tekens[(Math.random() * tekens.length) | 0]).join('');
+      if (++f <= tot) requestAnimationFrame(() => setTimeout(tik, 28)); else scr.textContent = doel;
+    };
+    tik();
+  }
+
+  // ---- Counters & reveal on view ----
+  const io = new IntersectionObserver(items => items.forEach(it => {
+    if (!it.isIntersecting) return;
+    const el = it.target;
+    if (el.id === 'scramble') scramble();
+    if (el.id === 'kaartSvg') el.classList.add('aan');
+    if (el.classList.contains('review')) el.classList.add('aan');
+    if (el.dataset.tel) { const eind = parseInt(el.dataset.tel) || 0; let n = 0; const st = setInterval(() => { el.textContent = (n = Math.min(eind, n + Math.ceil(eind / 30))) + '+'; if (n >= eind) clearInterval(st); }, 35); delete el.dataset.tel; }
+    io.unobserve(el);
+  }), { threshold: .35 });
+  [scr, kaart, ...$$('.review'), ...$$('[data-tel]')].forEach((el, i) => { if (el.classList.contains('review')) el.style.transitionDelay = (i % 3) * .12 + 's'; io.observe(el); });
+
+  // ---- Scroll loop ----
+  const heroTekst = $('.hero-tekst'), hero = $('.hero'), lagen = $$('.laag'), deel = $('.deeltjes'), pTeksten = $$('.p-tekst span');
+  const vulSec = $('.vul'), hor = $('.horizontaal'), spoor = $('#spoor'), teller = $('#teller');
+  const blauw = $('.blauwdruk'), lijnen = $$('.plan .t, .plan .z'), labels = $$('.plan text'), nav = $('#nav');
+  function frame(tijd) {
+    // hero parallax
+    const ph = voortgang(hero);
+    lagen.forEach(l => l.style.transform = `translateY(${ph * 260 * l.dataset.snelheid}px) scale(${1 + ph * l.dataset.snelheid * .9})`);
+    $('#scene').style.transform = `scale(${1 + ph * .12})`;
+    $('#scene').style.filter = `brightness(${1 - ph * .55})`;
+    heroTekst.style.opacity = 1 - ph * 1.8;
+    heroTekst.style.transform = `translateY(${-ph * 120}px)`;
+    // particles
+    const pd = voortgang(deel);
+    const r = deel.getBoundingClientRect();
+    if (r.bottom > 0 && r.top < innerHeight) tekenDeeltjes(rust ? .5 : pd, tijd);
+    pTeksten.forEach(s => s.classList.toggle('aan', pd >= +s.dataset.van && pd < +s.dataset.tot));
+    // word fill
+    const pv = voortgang(vulSec) * 1.15;
+    vulWoorden.forEach((w, i) => w.classList.toggle('aan', i / vulWoorden.length < pv));
+    // horizontal track
+    const pH = voortgang(hor);
+    const max = spoor.scrollWidth - innerWidth + 48;
+    spoor.style.transform = `translateX(${-pH * max}px)`;
+    teller.textContent = String(Math.min(5, 1 + Math.floor(pH * 5))).padStart(2, '0') + ' / 05';
+    // blueprint
+    const pb = voortgang(blauw);
+    lijnen.forEach((l, i) => l.style.strokeDashoffset = 1 - klem(pb * 1.6 - i * .05));
+    labels.forEach(t => t.classList.toggle('aan', pb > +t.dataset.op));
+    // nav colour on light sections
+    const licht = [$('.gordijn'), $('.vertrouwen'), $('.cta')].some(s => { const b = s.getBoundingClientRect(); return b.top < 40 && b.bottom > 40; });
+    nav.classList.toggle('licht', licht);
+    requestAnimationFrame(frame);
+  }
+  init(); addEventListener('resize', init);
+  requestAnimationFrame(frame);
+
+  $('#form').addEventListener('submit', e => { e.preventDefault(); e.target.style.display = 'none'; $('#bedankt').style.display = 'block'; });
+})();
+</script>
+</body>
+</html>

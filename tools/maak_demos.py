@@ -2,7 +2,8 @@
 """Genereert per lead een gepersonaliseerde demo-website.
 
 Gebruik:
-    python3 tools/maak_demos.py leads/hoveniers_regio_utrecht.csv            # template 'modern'
+    python3 tools/maak_demos.py leads/hoveniers_regio_utrecht.csv            # template 'cinematic' (scroll-animaties)
+    python3 tools/maak_demos.py leads/hoveniers_regio_utrecht.csv modern     # template 'modern'
     python3 tools/maak_demos.py leads/hoveniers_regio_utrecht.csv premium    # template 'premium'
 
 Uitvoer: demos/out/<bedrijf>/index.html  +  demos/out/index.html (overzicht).
@@ -73,7 +74,7 @@ def vul_in(template, lead):
 def main():
     if len(sys.argv) < 2:
         sys.exit(__doc__)
-    soort = sys.argv[2] if len(sys.argv) > 2 else "modern"
+    soort = sys.argv[2] if len(sys.argv) > 2 else "cinematic"
     template = (ROOT / "demos" / f"template-{soort}" / "index.html").read_text(encoding="utf-8")
     leads = list(csv.DictReader(open(sys.argv[1], encoding="utf-8")))
     out_dir = ROOT / "demos" / "out"
