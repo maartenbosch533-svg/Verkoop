@@ -1,0 +1,668 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nachtwerk | Digitale studio</title>
+<meta name="description" content="Nachtwerk ontwerpt en bouwt websites die opvallen en verkopen. Filmisch ontwerp, 3D en motion, binnen 7 dagen live.">
+<meta property="og:title" content="Nachtwerk | Websites die verkopen">
+<meta property="og:image" content="assets/img/laptopDark.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%228%22 fill=%22%23060807%22/%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%226%22 fill=%22%23c4f25a%22/%3E%3C/svg%3E">
+<link rel="preload" as="image" href="assets/img/hero.jpg">
+<style>
+  :root{
+    --ink:#060807; --ink2:#0d110f; --paper:#efece5; --paper2:#e5e1d8; --mute:#7f8781;
+    --lime:#c4f25a; --lime-d:#93c42d; --line:rgba(255,255,255,.1); --ease:cubic-bezier(.16,1,.3,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:auto}
+  body{background:var(--ink);color:#fff;font-family:"Inter","Helvetica Neue",system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  body.laden{overflow:hidden}
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%}
+  .wrap{max-width:1320px;margin:0 auto;padding:0 28px}
+  .mono{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase}
+  ::selection{background:var(--lime);color:var(--ink)}
+
+  /* grain */
+  .korrel{position:fixed;inset:-50%;width:200%;height:200%;pointer-events:none;z-index:90;opacity:.06;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    animation:korrel 1s steps(4) infinite}
+  @keyframes korrel{0%{transform:translate(0,0)}25%{transform:translate(-3%,2%)}50%{transform:translate(2%,-3%)}75%{transform:translate(-2%,-1%)}}
+
+  /* preloader */
+  .loader{position:fixed;inset:0;z-index:100;background:var(--ink);display:flex;flex-direction:column;justify-content:space-between;padding:28px;transition:clip-path 1.2s var(--ease)}
+  .loader.weg{clip-path:inset(0 0 100% 0)}
+  .loader .top{display:flex;justify-content:space-between;color:var(--mute)}
+  .loader .merk{font-size:clamp(3rem,14vw,13rem);font-weight:700;letter-spacing:-.06em;line-height:.8;overflow:hidden}
+  .loader .merk span{display:inline-block;transform:translateY(105%);transition:transform 1s var(--ease)}
+  .loader.aan .merk span{transform:none}
+  .loader .teller{font-size:clamp(2.5rem,7vw,6rem);font-weight:300;letter-spacing:-.04em;font-variant-numeric:tabular-nums;text-align:right}
+  .loader .balk{height:1px;background:var(--line);position:relative;margin-top:14px}
+  .loader .balk i{position:absolute;inset:0;background:var(--lime);transform-origin:left;transform:scaleX(0)}
+
+  /* cursor */
+  .cursor{position:fixed;top:0;left:0;width:10px;height:10px;border-radius:50%;background:#fff;z-index:95;pointer-events:none;mix-blend-mode:difference;transform:translate(-50%,-50%);transition:width .35s var(--ease),height .35s var(--ease)}
+  .cursor.groot{width:64px;height:64px}
+  .cursor.label{width:96px;height:96px;background:var(--lime);mix-blend-mode:normal;display:grid;place-items:center}
+  .cursor.label::after{content:attr(data-t);color:var(--ink);font:600 .75rem/1 system-ui;letter-spacing:.04em}
+  @media(hover:none){.cursor{display:none}}
+
+  /* nav */
+  .nav{position:fixed;top:18px;left:50%;transform:translate(-50%,-140%);z-index:80;width:min(1180px,calc(100% - 24px));display:flex;align-items:center;justify-content:space-between;gap:16px;padding:9px 9px 9px 20px;border-radius:14px;
+    background:rgba(10,13,11,.5);backdrop-filter:blur(16px) saturate(150%);-webkit-backdrop-filter:blur(16px) saturate(150%);border:1px solid var(--line);transition:transform 1s var(--ease) .2s,background .4s,color .4s}
+  .nav.zicht{transform:translate(-50%,0)}
+  .nav.licht{background:rgba(239,236,229,.72);color:var(--ink);border-color:rgba(0,0,0,.08)}
+  .logo{font-weight:700;letter-spacing:-.04em;font-size:1.15rem;display:flex;align-items:center;gap:9px}
+  .logo b{width:9px;height:9px;border-radius:50%;background:var(--lime);box-shadow:0 0 14px var(--lime)}
+  .nav ul{display:flex;gap:28px;list-style:none;font-size:.9rem}
+  .nav ul a{opacity:.75;transition:opacity .2s}.nav ul a:hover{opacity:1}
+  .knop{display:inline-flex;align-items:center;gap:10px;padding:11px 18px;border-radius:10px;font-weight:600;font-size:.9rem;border:1px solid transparent;cursor:pointer;white-space:nowrap;transition:background .3s,color .3s,border-color .3s;will-change:transform}
+  .knop.lime{background:var(--lime);color:var(--ink)}
+  .knop.lime:hover{background:#dcff8a}
+  .knop.rand{border-color:rgba(255,255,255,.35)}
+  .knop.rand:hover{border-color:#fff}
+  .knop.groot{padding:17px 26px;font-size:1rem;border-radius:12px}
+  .knop .pijl{transition:transform .4s var(--ease)}
+  .knop:hover .pijl{transform:translateX(4px)}
+
+  /* hero */
+  .hero{position:relative;height:100vh;min-height:640px;overflow:hidden}
+  .hero .poster{position:absolute;inset:0;background:url(assets/img/hero.jpg) center/cover;opacity:.0;transition:opacity 1s}
+  .hero.geen-gl .poster{opacity:1}
+  #gl{position:absolute;inset:0;width:100%;height:100%}
+  .hero .vignet{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 45%,transparent 40%,rgba(6,8,7,.85) 100%),linear-gradient(180deg,rgba(6,8,7,.4),transparent 25%,transparent 60%,var(--ink))}
+  .hero-inhoud{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:0 28px 13vh;max-width:1320px;margin:0 auto;pointer-events:none}
+  .hero-inhoud > *{pointer-events:auto}
+  .hero .meta{display:flex;justify-content:space-between;color:var(--mute);margin-bottom:28px}
+  .hero h1{font-size:clamp(3.2rem,10.5vw,10.5rem);line-height:.86;letter-spacing:-.065em;font-weight:600}
+  .regel{display:block;overflow:hidden;padding-bottom:.06em}
+  .regel > span{display:inline-block;transform:translateY(110%);transition:transform 1.3s var(--ease)}
+  .klaar .regel > span{transform:none}
+  .hero h1 em{font-style:normal;color:var(--lime)}
+  .hero .onder{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;margin-top:34px;flex-wrap:wrap}
+  .hero .onder p{max-width:430px;color:#c5ccc6;font-size:1.05rem;line-height:1.55;opacity:0;transform:translateY(16px);transition:1s var(--ease) .7s}
+  .hero .onder .knoppen{display:flex;gap:10px;opacity:0;transform:translateY(16px);transition:1s var(--ease) .85s}
+  .klaar .hero .onder p,.klaar .hero .onder .knoppen{opacity:1;transform:none}
+
+  /* marquee */
+  .band{border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden;padding:22px 0;background:var(--ink)}
+  .band .rol{display:flex;gap:48px;width:max-content;animation:rol 38s linear infinite;font-size:clamp(1.4rem,3vw,2.6rem);letter-spacing:-.03em;font-weight:500}
+  .band .rol span{display:flex;align-items:center;gap:48px;white-space:nowrap}
+  .band .rol span::after{content:"";width:12px;height:12px;border-radius:50%;background:var(--lime)}
+  @keyframes rol{to{transform:translateX(-50%)}}
+
+  /* particles */
+  .deeltjes{position:relative;height:330vh}
+  .deeltjes .vast{position:sticky;top:0;height:100vh;overflow:hidden}
+  #pc{position:absolute;inset:0;width:100%;height:100%}
+  .p-kop{position:absolute;top:120px;left:28px;right:28px;display:flex;justify-content:space-between;color:var(--mute)}
+  .p-tekst{position:absolute;left:0;right:0;bottom:12vh;text-align:center;font-size:clamp(1.7rem,4vw,3.4rem);letter-spacing:-.04em;font-weight:500;pointer-events:none}
+  .p-tekst span{position:absolute;left:0;right:0;opacity:0;transform:translateY(18px);transition:opacity .7s,transform .7s var(--ease)}
+  .p-tekst span.aan{opacity:1;transform:none}
+  .p-tekst em{font-style:normal;color:var(--lime)}
+  .p-voortgang{position:absolute;left:28px;right:28px;bottom:5vh;height:1px;background:var(--line)}
+  .p-voortgang i{position:absolute;inset:0;background:var(--lime);transform-origin:left;transform:scaleX(0)}
+
+  /* manifesto */
+  .papier{background:var(--paper);color:var(--ink);border-radius:32px 32px 0 0;position:relative;z-index:2;margin-top:-4vh}
+  .vul{height:230vh;position:relative}
+  .vul .vast{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;justify-content:center}
+  .vul .mono{color:var(--mute);margin-bottom:34px}
+  .vul p{font-size:clamp(1.9rem,4.6vw,4.4rem);line-height:1.08;letter-spacing:-.045em;font-weight:500;max-width:1180px}
+  .vul p span{color:#cbc7bd;transition:color .3s}
+  .vul p span.aan{color:var(--ink)}
+  .vul p span.l.aan{color:var(--lime-d)}
+
+  /* work (horizontal) */
+  .werk{height:420vh;position:relative;background:var(--paper);color:var(--ink)}
+  .werk .vast{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;flex-direction:column;justify-content:center}
+  .werk-kop{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;margin-bottom:38px}
+  .werk-kop h2{font-size:clamp(2.6rem,7vw,7rem);letter-spacing:-.06em;line-height:.85;font-weight:600}
+  .werk-kop .teller{font-variant-numeric:tabular-nums;color:var(--mute)}
+  .spoor{display:flex;gap:26px;padding-left:max(28px,calc((100vw - 1320px)/2 + 28px));will-change:transform}
+  .case{flex:0 0 min(80vw,880px);display:flex;flex-direction:column;gap:16px}
+  .case .beeld{height:min(58vh,560px);border-radius:22px;overflow:hidden;position:relative;background:#111}
+  .case .beeld img{width:100%;height:100%;object-fit:cover;transform:scale(1.12);transition:transform 1.4s var(--ease)}
+  .case:hover .beeld img{transform:scale(1.04)}
+  .case .tag{position:absolute;top:18px;left:18px;background:rgba(6,8,7,.55);backdrop-filter:blur(10px);color:#fff;padding:7px 11px;border-radius:8px}
+  .case .info{display:flex;justify-content:space-between;align-items:baseline;gap:20px}
+  .case h3{font-size:clamp(1.3rem,2.2vw,2rem);letter-spacing:-.03em;font-weight:600}
+  .case .info span{color:var(--mute)}
+  .case.einde .beeld{background:var(--ink);color:#fff;display:flex;flex-direction:column;justify-content:space-between;padding:clamp(24px,4vw,48px)}
+  .case.einde h3{font-size:clamp(2rem,4.5vw,4.4rem);line-height:.95;letter-spacing:-.05em}
+
+  /* services */
+  .diensten{background:var(--ink);padding:150px 0 120px;position:relative}
+  .sectie-kop{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;margin-bottom:70px;flex-wrap:wrap}
+  .sectie-kop h2{font-size:clamp(2.6rem,7vw,7rem);letter-spacing:-.06em;line-height:.85;font-weight:600}
+  .sectie-kop p{max-width:380px;color:var(--mute);line-height:1.6}
+  .dienst{display:grid;grid-template-columns:90px 1fr 1fr 40px;gap:24px;align-items:center;padding:34px 0;border-top:1px solid var(--line);position:relative;transition:padding .5s var(--ease)}
+  .dienst:last-child{border-bottom:1px solid var(--line)}
+  .dienst .nr{color:var(--mute)}
+  .dienst h3{font-size:clamp(1.8rem,4.2vw,4rem);letter-spacing:-.05em;font-weight:500;line-height:1;transition:transform .6s var(--ease),color .3s}
+  .dienst p{color:var(--mute);max-width:420px;line-height:1.55}
+  .dienst .plus{font-size:1.6rem;color:var(--mute);transition:transform .5s var(--ease),color .3s}
+  .dienst:hover h3{transform:translateX(16px);color:var(--lime)}
+  .dienst:hover .plus{transform:rotate(45deg);color:var(--lime)}
+  .dienst .mob{display:none}
+  .zweef{position:fixed;top:0;left:0;width:340px;height:240px;border-radius:16px;overflow:hidden;pointer-events:none;z-index:60;opacity:0;transform:translate(-50%,-50%) scale(.7) rotate(-4deg);transition:opacity .35s,transform .5s var(--ease)}
+  .zweef.aan{opacity:1;transform:translate(-50%,-50%) scale(1) rotate(0)}
+  .zweef img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .35s}
+  .zweef img.aan{opacity:1}
+
+  /* process */
+  .proces{height:300vh;position:relative;background:var(--ink)}
+  .proces .vast{position:sticky;top:0;height:100vh;display:grid;grid-template-columns:1fr 1.15fr;gap:60px;align-items:center;max-width:1320px;margin:0 auto;padding:0 28px}
+  .stappen{position:relative;height:320px}
+  .stap{position:absolute;inset:0;opacity:0;transform:translateY(30px);transition:opacity .6s,transform .8s var(--ease)}
+  .stap.aan{opacity:1;transform:none}
+  .stap .dag{color:var(--lime);margin-bottom:20px}
+  .stap h3{font-size:clamp(2.2rem,4.6vw,4.4rem);letter-spacing:-.05em;line-height:.95;font-weight:600;margin-bottom:20px}
+  .stap p{color:var(--mute);max-width:420px;line-height:1.6;font-size:1.05rem}
+  .stap-bolletjes{display:flex;gap:8px;margin-top:30px}
+  .stap-bolletjes i{width:28px;height:3px;border-radius:3px;background:var(--line);transition:background .4s}
+  .stap-bolletjes i.aan{background:var(--lime)}
+  .schets{aspect-ratio:16/11;border:1px solid var(--line);border-radius:20px;background:
+      linear-gradient(var(--line) 1px,transparent 1px) 0 0/32px 32px,
+      linear-gradient(90deg,var(--line) 1px,transparent 1px) 0 0/32px 32px,#0a0e0b;overflow:hidden;position:relative}
+  .schets svg{width:100%;height:100%}
+  .schets .t{fill:none;stroke:var(--lime);stroke-width:1.4;stroke-dasharray:1;stroke-dashoffset:1}
+  .schets .z{fill:none;stroke:#ffffff40;stroke-width:1;stroke-dasharray:1;stroke-dashoffset:1}
+  .schets .vlak{fill:var(--lime);opacity:0;transition:opacity .6s}
+  .schets img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;clip-path:inset(0 100% 0 0);transition:clip-path 1.2s var(--ease)}
+  .schets img.aan{clip-path:inset(0 0 0 0)}
+
+  /* scramble grid */
+  .raster{min-height:100vh;display:grid;place-items:center;text-align:center;position:relative;overflow:hidden;
+    background:linear-gradient(rgba(255,255,255,.07) 1px,transparent 1px) 0 0/60px 60px,linear-gradient(90deg,rgba(255,255,255,.07) 1px,transparent 1px) 0 0/60px 60px,radial-gradient(ellipse at center,#1d6a4c,#0c3326 72%)}
+  .raster .mono{opacity:.75;margin-bottom:20px;display:block}
+  .scramble{font-size:clamp(4rem,17vw,15rem);font-weight:700;letter-spacing:-.06em;line-height:.85;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .raster p{max-width:520px;margin:28px auto 0;opacity:.85;line-height:1.6;padding:0 20px}
+
+  /* full-bleed image */
+  .vol{position:relative;height:120vh;overflow:hidden}
+  .vol img{position:absolute;left:0;width:100%;height:130%;top:-15%;object-fit:cover;will-change:transform}
+  .vol .tekst{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;color:var(--ink)}
+  .vol h2{font-size:clamp(2.6rem,8vw,8rem);letter-spacing:-.06em;line-height:.88;font-weight:600;mix-blend-mode:multiply}
+
+  /* pricing */
+  .prijzen{background:var(--paper);color:var(--ink);padding:150px 0}
+  .prijzen .sectie-kop p{color:#6b706b}
+  .pakketten{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .pakket{border-radius:22px;padding:34px;background:#fff;border:1px solid #e2ded4;display:flex;flex-direction:column;gap:22px;transition:transform .6s var(--ease)}
+  .pakket:hover{transform:translateY(-6px)}
+  .pakket.top{background:var(--ink);color:#fff;border-color:var(--ink);position:relative;overflow:hidden}
+  .pakket.top::before{content:"";position:absolute;width:420px;height:420px;right:-160px;top:-180px;border-radius:50%;background:radial-gradient(circle,#c4f25a40,transparent 65%)}
+  .pakket .naam{display:flex;justify-content:space-between;align-items:center}
+  .pakket .badge{background:var(--lime);color:var(--ink);padding:5px 9px;border-radius:6px}
+  .pakket .prijs{font-size:clamp(2.6rem,4.4vw,3.8rem);letter-spacing:-.05em;font-weight:600;line-height:1}
+  .pakket .prijs small{font-size:1rem;letter-spacing:0;font-weight:400;color:var(--mute)}
+  .pakket ul{list-style:none;display:grid;gap:11px;font-size:.96rem}
+  .pakket li{display:flex;gap:10px}
+  .pakket li::before{content:"";flex:0 0 7px;height:7px;border-radius:50%;background:var(--lime-d);margin-top:.5em}
+  .pakket .knop{justify-content:center;margin-top:auto}
+  .pakket .knop.donker{background:var(--ink);color:#fff}
+  .pakket .knop.donker:hover{background:#1c221e}
+  .prijzen .noot{text-align:center;color:#6b706b;font-size:.9rem;margin-top:26px}
+
+  /* contact */
+  .contact{background:var(--ink);padding:160px 0 60px;position:relative;overflow:hidden}
+  .contact .groot-tekst{font-size:clamp(3rem,10vw,10rem);letter-spacing:-.065em;line-height:.86;font-weight:600;margin-bottom:60px}
+  .contact .groot-tekst em{font-style:normal;color:var(--lime)}
+  .contact-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:60px;align-items:start}
+  .contact .mail{font-size:clamp(1.5rem,3.2vw,2.8rem);letter-spacing:-.04em;border-bottom:1px solid var(--line);padding-bottom:10px;display:inline-block;transition:color .3s,border-color .3s}
+  .contact .mail:hover{color:var(--lime);border-color:var(--lime)}
+  .contact .details{margin-top:40px;display:grid;grid-template-columns:1fr 1fr;gap:24px;color:var(--mute)}
+  .contact .details b{display:block;color:#fff;font-weight:500;margin-top:6px}
+  form{display:grid;gap:12px}
+  .rij{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  input,select,textarea{width:100%;padding:16px 18px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:#fff;font:inherit;transition:border-color .3s}
+  select option{color:#000}
+  input::placeholder,textarea::placeholder{color:#6f776f}
+  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--lime)}
+  .keuzes{display:flex;flex-wrap:wrap;gap:8px}
+  .keuzes label{cursor:pointer}
+  .keuzes input{display:none}
+  .keuzes span{display:inline-block;padding:10px 15px;border-radius:999px;border:1px solid var(--line);font-size:.9rem;transition:.25s}
+  .keuzes input:checked + span{background:var(--lime);color:var(--ink);border-color:var(--lime)}
+  .woordmerk{margin-top:140px;font-size:clamp(4rem,19.5vw,22rem);font-weight:700;letter-spacing:-.075em;line-height:.75;text-align:center;
+    color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.18);background:linear-gradient(90deg,var(--lime),var(--lime)) no-repeat left/0% 100%;-webkit-background-clip:text;background-clip:text;user-select:none}
+  footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;color:var(--mute);border-top:1px solid var(--line);padding-top:24px;margin-top:40px}
+
+  /* reveal */
+  .op{opacity:0;transform:translateY(40px);transition:opacity 1s,transform 1.2s var(--ease)}
+  .op.aan{opacity:1;transform:none}
+
+  @media(max-width:960px){
+    .nav ul,.nav .knop.rand{display:none}
+    .dienst{grid-template-columns:50px 1fr 30px}
+    .dienst p{grid-column:2/4}
+    .dienst .mob{display:block;grid-column:1/4;height:200px;border-radius:14px;overflow:hidden}
+    .dienst .mob img{width:100%;height:100%;object-fit:cover}
+    .zweef{display:none}
+    .proces .vast{grid-template-columns:1fr;gap:30px;align-content:center}
+    .stappen{height:250px}
+    .pakketten,.contact-grid{grid-template-columns:1fr}
+    .hero .meta{display:none}
+  }
+  @media(max-width:560px){.rij,.contact .details{grid-template-columns:1fr}.wrap,.hero-inhoud{padding-left:18px;padding-right:18px}}
+  @media(prefers-reduced-motion:reduce){*{transition-duration:.01s!important;animation:none!important}}
+</style>
+<script type="importmap">{"imports":{"three":"./assets/js/three.module.min.js"}}</script>
+</head>
+<body class="laden">
+<div class="korrel" aria-hidden="true"></div>
+<div class="cursor" id="cursor" aria-hidden="true"></div>
+
+<!-- PRELOADER -->
+<div class="loader" id="loader" aria-hidden="true">
+  <div class="top mono"><span>Digitale studio</span><span>Est. 2026</span></div>
+  <div>
+    <div class="teller" id="lteller">000</div>
+    <div class="balk"><i id="lbalk"></i></div>
+    <div class="merk" style="margin-top:22px"><span>NACHTWERK</span></div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <a href="#" class="logo" data-cursor="groot"><b></b>nachtwerk</a>
+  <ul>
+    <li><a href="#werk">Werk</a></li>
+    <li><a href="#diensten">Diensten</a></li>
+    <li><a href="#proces">Proces</a></li>
+    <li><a href="#prijzen">Prijzen</a></li>
+  </ul>
+  <div style="display:flex;gap:8px">
+    <a href="#werk" class="knop rand">Bekijk werk</a>
+    <a href="#contact" class="knop lime magneet">Start project <span class="pijl">→</span></a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="hero">
+  <div class="poster"></div>
+  <canvas id="gl" aria-hidden="true"></canvas>
+  <div class="vignet"></div>
+  <div class="hero-inhoud">
+    <div class="meta mono"><span>( Digitale studio )</span><span>Ontwerp · Development · 3D</span><span id="klok">Sofia —:—</span></div>
+    <h1>
+      <span class="regel"><span>Websites die</span></span>
+      <span class="regel"><span><em>blijven</em> hangen.</span></span>
+    </h1>
+    <div class="onder">
+      <p>Wij ontwerpen en bouwen filmische websites voor ondernemers die niet willen lijken op de rest. Van eerste gesprek tot livegang in zeven dagen.</p>
+      <div class="knoppen">
+        <a href="#contact" class="knop lime groot magneet">Start een project <span class="pijl">→</span></a>
+        <a href="#werk" class="knop rand groot magneet">Bekijk werk</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="band" aria-hidden="true"><div class="rol">
+  <span>Webdesign</span><span>Development</span><span>3D &amp; motion</span><span>SEO</span><span>Automatisering</span><span>Branding</span>
+  <span>Webdesign</span><span>Development</span><span>3D &amp; motion</span><span>SEO</span><span>Automatisering</span><span>Branding</span>
+</div></div>
+
+<!-- PARTICLES -->
+<section class="deeltjes" id="idee">
+  <div class="vast">
+    <canvas id="pc"></canvas>
+    <div class="p-kop mono"><span>( 01 ) Hoe het ontstaat</span><span id="pfase">Idee</span></div>
+    <div class="p-tekst">
+      <span data-van="0" data-tot=".3">Het begint met <em>een idee.</em></span>
+      <span data-van=".33" data-tot=".63">Dat wordt <em>een ontwerp.</em></span>
+      <span data-van=".66" data-tot="1.01">En dan <em>een website die verkoopt.</em></span>
+    </div>
+    <div class="p-voortgang"><i id="pbalk"></i></div>
+  </div>
+</section>
+
+<div class="papier">
+  <!-- MANIFESTO -->
+  <section class="vul">
+    <div class="vast wrap">
+      <div class="mono">( 02 ) Waar we voor staan</div>
+      <p id="manifest">De meeste websites zijn <b>vergeten</b> voordat ze geladen zijn. Wij bouwen het tegenovergestelde: sites met <b>ritme, beweging en lef</b>, die bezoekers vasthouden en omzetten in klanten. Geen templates. Geen ruis. Alleen <b>vakwerk.</b></p>
+    </div>
+  </section>
+
+  <!-- WORK -->
+  <section class="werk" id="werk">
+    <div class="vast">
+      <div class="wrap werk-kop"><h2>Werk</h2><span class="teller mono" id="wteller">01 / 04</span></div>
+      <div class="spoor" id="spoor">
+        <a class="case" href="../demos/out/hofland-hoveniersbedrijf-t/" data-cursor="Bekijk">
+          <div class="beeld"><img src="assets/img/laptopDark.jpg" alt="Filmische website voor een hoveniersbedrijf op een laptop" loading="lazy"><span class="tag mono">Concept · 2026</span></div>
+          <div class="info"><h3>Hoveniers, filmisch</h3><span class="mono">Scroll-animatie · Deeltjes · Motion</span></div>
+        </a>
+        <a class="case" href="../demos/out/verdi-tuinen-bv/" data-cursor="Bekijk">
+          <div class="beeld"><img src="assets/img/phones.jpg" alt="Drie websites op smartphones" loading="lazy"><span class="tag mono">Concept · Mobiel eerst</span></div>
+          <div class="info"><h3>Mobile first, altijd</h3><span class="mono">Responsive · Snel · Converteert</span></div>
+        </a>
+        <a class="case" href="../demos/out/verdi-tuinen-bv/" data-cursor="Bekijk">
+          <div class="beeld"><img src="assets/img/laptopLight.jpg" alt="Lichte, frisse website op een laptop" loading="lazy"><span class="tag mono">Concept · Lokaal</span></div>
+          <div class="info"><h3>Fris &amp; lokaal</h3><span class="mono">Offertes · Reviews · SEO</span></div>
+        </a>
+        <div class="case einde">
+          <div class="beeld">
+            <span class="mono" style="color:var(--mute)">( Volgende )</span>
+            <h3>Uw project<br>hier?</h3>
+            <a href="#contact" class="knop lime groot magneet" style="align-self:flex-start">Plan een gesprek <span class="pijl">→</span></a>
+          </div>
+          <div class="info"><h3>&nbsp;</h3></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- SERVICES -->
+<section class="diensten" id="diensten">
+  <div class="wrap">
+    <div class="sectie-kop op"><h2>Wat we<br>maken</h2><p>Eén studio voor alles wat uw merk online nodig heeft. Kort lijntje, vaste prijs, geen verrassingen.</p></div>
+    <div class="dienst op" data-img="0"><span class="nr mono">01</span><h3>Webdesign</h3><p>Filmisch, eigenwijs ontwerp dat past bij uw merk. Elk detail bewust gekozen.</p><span class="plus">+</span><div class="mob"><img src="assets/img/stone.jpg" alt="" loading="lazy"></div></div>
+    <div class="dienst op" data-img="1"><span class="nr mono">02</span><h3>Development</h3><p>Razendsnelle, handgeschreven code. Geen logge pagebuilders.</p><span class="plus">+</span><div class="mob"><img src="assets/img/chrome.jpg" alt="" loading="lazy"></div></div>
+    <div class="dienst op" data-img="2"><span class="nr mono">03</span><h3>3D &amp; motion</h3><p>Scroll-animaties, deeltjes en 3D die uw site onvergetelijk maken.</p><span class="plus">+</span><div class="mob"><img src="assets/img/glass.jpg" alt="" loading="lazy"></div></div>
+    <div class="dienst op" data-img="3"><span class="nr mono">04</span><h3>SEO &amp; groei</h3><p>Gevonden worden op Google, en bezoekers omzetten in aanvragen.</p><span class="plus">+</span><div class="mob"><img src="assets/img/terrain.jpg" alt="" loading="lazy"></div></div>
+    <div class="dienst op" data-img="4"><span class="nr mono">05</span><h3>Automatisering</h3><p>Offertes, reviewverzoeken en opvolging die vanzelf gaan.</p><span class="plus">+</span><div class="mob"><img src="assets/img/hero.jpg" alt="" loading="lazy"></div></div>
+  </div>
+  <div class="zweef" id="zweef" aria-hidden="true">
+    <img src="assets/img/stone.jpg" alt=""><img src="assets/img/chrome.jpg" alt=""><img src="assets/img/glass.jpg" alt=""><img src="assets/img/terrain.jpg" alt=""><img src="assets/img/hero.jpg" alt="">
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="proces" id="proces">
+  <div class="vast">
+    <div>
+      <div class="mono" style="color:var(--mute);margin-bottom:26px">( 03 ) Proces</div>
+      <div class="stappen">
+        <div class="stap"><div class="dag mono">Dag 1</div><h3>Kennismaken</h3><p>Een videogesprek van 30 minuten. We leren uw bedrijf, klanten en doelen kennen.</p></div>
+        <div class="stap"><div class="dag mono">Dag 2 – 3</div><h3>Ontwerp</h3><p>We schetsen de structuur en ontwerpen elke sectie. U ziet het resultaat live meegroeien.</p></div>
+        <div class="stap"><div class="dag mono">Dag 4 – 6</div><h3>Bouw &amp; motion</h3><p>Handgeschreven code, animaties en teksten. Twee feedbackrondes inbegrepen.</p></div>
+        <div class="stap"><div class="dag mono">Dag 7</div><h3>Live.</h3><p>Domein gekoppeld, Google ingesteld, formulieren getest. Uw nieuwe site staat er.</p></div>
+      </div>
+      <div class="stap-bolletjes" id="bolletjes"><i></i><i></i><i></i><i></i></div>
+    </div>
+    <div class="schets">
+      <svg viewBox="0 0 480 330" aria-hidden="true">
+        <rect class="t" pathLength="1" x="20" y="20" width="440" height="290" rx="10"/>
+        <path class="t" pathLength="1" d="M20 48 H460"/>
+        <circle class="t" pathLength="1" cx="36" cy="34" r="4"/><circle class="t" pathLength="1" cx="50" cy="34" r="4"/><circle class="t" pathLength="1" cx="64" cy="34" r="4"/>
+        <rect class="z" pathLength="1" x="40" y="64" width="400" height="22" rx="6"/>
+        <rect class="t" pathLength="1" x="40" y="100" width="400" height="110" rx="8"/>
+        <path class="z" pathLength="1" d="M60 140 H260 M60 160 H230 M60 180 H200"/>
+        <rect class="z" pathLength="1" x="60" y="190" width="70" height="12" rx="6"/>
+        <rect class="t" pathLength="1" x="40" y="224" width="124" height="70" rx="8"/>
+        <rect class="t" pathLength="1" x="178" y="224" width="124" height="70" rx="8"/>
+        <rect class="t" pathLength="1" x="316" y="224" width="124" height="70" rx="8"/>
+        <rect class="vlak" x="60" y="190" width="70" height="12" rx="6"/>
+      </svg>
+      <img src="assets/img/laptopDark.jpg" alt="" id="schetsBeeld" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<!-- SCRAMBLE -->
+<section class="raster">
+  <div>
+    <span class="mono">Van eerste gesprek tot livegang</span>
+    <div class="scramble" id="scramble" data-woord="7 DAGEN">7 DAGEN</div>
+    <p>Geen maandenlange trajecten. Een strak proces, een vast team en een website die er staat voordat uw concurrent heeft teruggebeld.</p>
+  </div>
+</section>
+
+<!-- FULL BLEED -->
+<section class="vol" id="vol">
+  <img src="assets/img/stone.jpg" alt="Sculpturale vormen in zandtinten" id="volImg" loading="lazy">
+  <div class="tekst"><h2>Rust. Precisie.<br>Detail.</h2></div>
+</section>
+
+<!-- PRICING -->
+<section class="prijzen" id="prijzen">
+  <div class="wrap">
+    <div class="sectie-kop op"><h2>Investering</h2><p>Heldere pakketten. Eén vaste prijs, geen uurtje-factuurtje. Alle bedragen excl. btw.</p></div>
+    <div class="pakketten">
+      <div class="pakket op">
+        <div class="naam"><span class="mono">Essentieel</span></div>
+        <div class="prijs">€750 <small>eenmalig</small></div>
+        <ul><li>Tot 6 pagina's, volledig responsive</li><li>Offerte- en contactformulier</li><li>Basis-SEO + Google Bedrijfsprofiel</li><li>Live binnen 7 dagen</li></ul>
+        <a href="#contact" class="knop donker groot" data-pakket="Essentieel">Kies Essentieel</a>
+      </div>
+      <div class="pakket top op">
+        <div class="naam"><span class="mono">Signature</span><span class="badge mono">Populair</span></div>
+        <div class="prijs">€1.950 <small>eenmalig</small></div>
+        <ul><li>Alles uit Essentieel</li><li>Filmische scroll-animaties en motion</li><li>3D-beelden en productrenders</li><li>Copywriting die converteert</li><li>3 feedbackrondes</li></ul>
+        <a href="#contact" class="knop lime groot" data-pakket="Signature">Kies Signature <span class="pijl">→</span></a>
+      </div>
+      <div class="pakket op">
+        <div class="naam"><span class="mono">Op maat</span></div>
+        <div class="prijs">Vanaf €3.500</div>
+        <ul><li>Webshops en complexe sites</li><li>Live 3D en interactieve ervaringen</li><li>Koppelingen en automatisering</li><li>Doorlopende groei en SEO</li></ul>
+        <a href="#contact" class="knop donker groot" data-pakket="Op maat">Plan een gesprek</a>
+      </div>
+    </div>
+    <p class="noot op">Hosting, onderhoud en kleine aanpassingen: €75 per maand, maandelijks opzegbaar.</p>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="groot-tekst op">Laten we iets<br>bouwen dat <em>opvalt.</em></div>
+    <div class="contact-grid">
+      <div class="op">
+        <a class="mail" id="mailLink" href="#">hallo@nachtwerk.studio</a>
+        <div class="details">
+          <div><span class="mono">Reactie</span><b>Binnen 24 uur</b></div>
+          <div><span class="mono">Werkgebied</span><b>Nederland &amp; België</b></div>
+          <div><span class="mono">Studio</span><b id="klok2">Sofia</b></div>
+          <div><span class="mono">Werkwijze</span><b>Volledig op afstand</b></div>
+        </div>
+      </div>
+      <form id="form" class="op">
+        <div class="keuzes" role="group" aria-label="Pakket">
+          <label><input type="radio" name="pakket" value="Essentieel"><span>Essentieel</span></label>
+          <label><input type="radio" name="pakket" value="Signature" checked><span>Signature</span></label>
+          <label><input type="radio" name="pakket" value="Op maat"><span>Op maat</span></label>
+          <label><input type="radio" name="pakket" value="Weet ik nog niet"><span>Weet ik nog niet</span></label>
+        </div>
+        <div class="rij"><input name="naam" placeholder="Naam" required><input name="bedrijf" placeholder="Bedrijf"></div>
+        <div class="rij"><input name="email" type="email" placeholder="E-mail" required><input name="tel" type="tel" placeholder="Telefoon"></div>
+        <textarea name="bericht" rows="4" placeholder="Vertel kort over uw project"></textarea>
+        <button class="knop lime groot magneet" type="submit" style="justify-content:center">Verstuur aanvraag <span class="pijl">→</span></button>
+      </form>
+    </div>
+    <div class="woordmerk" id="woordmerk" aria-hidden="true">nachtwerk</div>
+    <footer class="mono"><span>© <span id="jaar"></span> Nachtwerk</span><span>Gebouwd na zonsondergang</span><a href="#hero">Terug naar boven ↑</a></footer>
+  </div>
+</section>
+
+<script>
+/* ======= Instellingen: pas hier je gegevens aan ======= */
+const STUDIO = { email: 'hallo@nachtwerk.studio', tijdzone: 'Europe/Sofia', stad: 'Sofia' };
+</script>
+
+<script>
+(() => {
+  const rust = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+  const klem = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+  const voortgang = el => { const r = el.getBoundingClientRect(); return klem(-r.top / (r.height - innerHeight)); };
+  $('#jaar').textContent = new Date().getFullYear();
+  $('#mailLink').textContent = STUDIO.email; $('#mailLink').href = 'mailto:' + STUDIO.email;
+
+  /* ---- live clock ---- */
+  const klok = () => { const t = new Intl.DateTimeFormat('nl-NL', { hour: '2-digit', minute: '2-digit', timeZone: STUDIO.tijdzone }).format(new Date()); $('#klok').textContent = `${STUDIO.stad} ${t}`; $('#klok2').textContent = `${STUDIO.stad} · ${t}`; };
+  klok(); setInterval(klok, 15000);
+
+  /* ---- preloader ---- */
+  const loader = $('#loader'); requestAnimationFrame(() => loader.classList.add('aan'));
+  let n = 0; const duur = rust ? 200 : 1900, start = performance.now();
+  (function tel(t) {
+    n = klem((t - start) / duur); const e = 1 - Math.pow(1 - n, 3);
+    $('#lteller').textContent = String(Math.round(e * 100)).padStart(3, '0'); $('#lbalk').style.transform = `scaleX(${e})`;
+    if (n < 1) requestAnimationFrame(tel); else setTimeout(() => { loader.classList.add('weg'); document.body.classList.remove('laden'); document.body.classList.add('klaar'); $('#nav').classList.add('zicht'); }, 250);
+  })(start);
+
+  /* ---- cursor + magnetic ---- */
+  const cur = $('#cursor'); let mx = innerWidth / 2, my = innerHeight / 2, cx = mx, cy = my;
+  addEventListener('pointermove', e => { mx = e.clientX; my = e.clientY; });
+  $$('a,button,[data-cursor]').forEach(el => {
+    el.addEventListener('pointerenter', () => { const d = el.dataset.cursor; if (d && d !== 'groot') { cur.classList.add('label'); cur.dataset.t = d; } else cur.classList.add('groot'); });
+    el.addEventListener('pointerleave', () => cur.classList.remove('groot', 'label'));
+  });
+  $$('.magneet').forEach(el => {
+    el.addEventListener('pointermove', e => { const r = el.getBoundingClientRect(); el.style.transform = `translate(${(e.clientX - r.left - r.width / 2) * .25}px,${(e.clientY - r.top - r.height / 2) * .35}px)`; });
+    el.addEventListener('pointerleave', () => { el.style.transition = 'transform .6s cubic-bezier(.16,1,.3,1)'; el.style.transform = ''; setTimeout(() => el.style.transition = '', 600); });
+  });
+
+  /* ---- manifesto split ---- */
+  const man = $('#manifest'), stukken = [];
+  man.childNodes.forEach(nd => nd.textContent.split(/(\s+)/).forEach(t => stukken.push(t.trim() ? `<span class="${nd.nodeType === 1 ? 'l' : ''}">${t}</span>` : t)));
+  man.innerHTML = stukken.join(''); const manW = [...man.querySelectorAll('span')];
+
+  /* ---- particles: IDEE -> wireframe -> website ---- */
+  const cv = $('#pc'), ctx = cv.getContext('2d'); let W, H, D = [];
+  const N = innerWidth < 700 ? 1500 : 3200;
+  function tekstPunten(woord, n) {
+    const c = document.createElement('canvas'); c.width = 900; c.height = 360; const x = c.getContext('2d');
+    x.fillStyle = '#fff'; x.font = '700 300px Inter, Helvetica, Arial, sans-serif'; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText(woord, 450, 190);
+    const d = x.getImageData(0, 0, 900, 360).data, pool = [];
+    for (let y = 0; y < 360; y += 3) for (let k = 0; k < 900; k += 3) if (d[(y * 900 + k) * 4 + 3] > 128) pool.push([(k - 450) / 900, (y - 180) / 900]);
+    return Array.from({ length: n }, () => pool[(Math.random() * pool.length) | 0]);
+  }
+  function wireframe(n) {
+    const s = [], R = (x, y, w, h) => s.push([x, y, x + w, y], [x + w, y, x + w, y + h], [x + w, y + h, x, y + h], [x, y + h, x, y]);
+    R(-.46, -.3, .92, .6); s.push([-.46, -.24, .46, -.24]); R(-.42, -.2, .84, .04); R(-.42, -.12, .84, .22); R(-.42, .14, .26, .13); R(-.13, .14, .26, .13); R(.16, .14, .26, .13);
+    s.push([-.38, -.06, 0, -.06], [-.38, -.02, -.06, -.02], [-.38, .02, -.12, .02]);
+    return Array.from({ length: n }, () => { const [a, b, c, d] = s[(Math.random() * s.length) | 0], t = Math.random(); return [a + (c - a) * t, b + (d - b) * t]; });
+  }
+  function website(n) {
+    const vlakken = [[-.46, -.3, .92, .06, .08], [-.42, -.2, .84, .04, .05], [-.42, -.12, .84, .22, .38], [-.42, .14, .26, .13, .16], [-.13, .14, .26, .13, .16], [.16, .14, .26, .13, .17]];
+    return Array.from({ length: n }, () => { let r = Math.random(), v = vlakken[0]; for (const f of vlakken) { if ((r -= f[4]) < 0) { v = f; break; } } return [v[0] + Math.random() * v[2], v[1] + Math.random() * v[3], v === vlakken[2] ? 1 : 0]; });
+  }
+  function init() {
+    const dpr = Math.min(devicePixelRatio || 1, 2); W = cv.clientWidth; H = cv.clientHeight; cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const a = tekstPunten('IDEE', N), b = wireframe(N), c = website(N);
+    D = a.map((p, i) => ({ s: [(Math.random() - .5) * 3, (Math.random() - .5) * 2], a: p, b: b[i], c: c[i], z: .35 + Math.random() * .9, r: Math.random() * 6.28 }));
+  }
+  const ease = t => t < .5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2;
+  const fasen = ['Idee', 'Ontwerp', 'Website'];
+  function teken(p, tijd) {
+    ctx.clearRect(0, 0, W, H);
+    const S = Math.min(W * .95, H * 1.35), mx0 = W / 2, my0 = H * .45;
+    let v, n, t;
+    if (p < .14) [v, n, t] = ['s', 'a', p / .14]; else if (p < .3) [v, n, t] = ['a', 'a', 0];
+    else if (p < .45) [v, n, t] = ['a', 'b', (p - .3) / .15]; else if (p < .6) [v, n, t] = ['b', 'b', 0];
+    else if (p < .76) [v, n, t] = ['b', 'c', (p - .6) / .16]; else [v, n, t] = ['c', 'c', 0];
+    const e = ease(klem(t)), chaos = Math.sin(e * Math.PI);
+    $('#pfase').textContent = fasen[p < .38 ? 0 : p < .68 ? 1 : 2];
+    for (const d of D) {
+      const A = d[v], B = d[n];
+      let x = A[0] + (B[0] - A[0]) * e, y = A[1] + (B[1] - A[1]) * e;
+      x += Math.sin(tijd * .0011 + d.r) * .003 + Math.cos(d.r * 7) * chaos * .06; y += Math.cos(tijd * .0013 + d.r) * .003 + Math.sin(d.r * 5) * chaos * .05;
+      const px = mx0 + x * S + (mouseX - .5) * 30 * d.z, py = my0 + y * S + (mouseY - .5) * 20 * d.z;
+      const lime = n === 'b' || (n === 'c' && !(d.c[2] && e > .5)) || v === 'b';
+      ctx.fillStyle = lime ? `rgba(196,242,90,${.55 + d.z * .45})` : `rgba(240,245,238,${.5 + d.z * .5})`;
+      const r = d.z * (W < 700 ? 1.7 : 2.1); ctx.fillRect(px, py, r, r);
+    }
+  }
+  let mouseX = .5, mouseY = .5; addEventListener('pointermove', e => { mouseX = e.clientX / innerWidth; mouseY = e.clientY / innerHeight; });
+
+  /* ---- service hover image ---- */
+  const zweef = $('#zweef'), zImgs = [...zweef.querySelectorAll('img')]; let zx = 0, zy = 0;
+  $$('.dienst').forEach(d => {
+    d.addEventListener('pointerenter', () => { zweef.classList.add('aan'); zImgs.forEach((im, i) => im.classList.toggle('aan', i == d.dataset.img)); });
+    d.addEventListener('pointerleave', () => zweef.classList.remove('aan'));
+  });
+
+  /* ---- scramble ---- */
+  const scr = $('#scramble'), doel = scr.dataset.woord, tekens = 'ABCDEFGHKLMNPRSTVWXZ0123456789#%&';
+  let scrKlaar = false;
+  const scramble = () => { if (scrKlaar) return; scrKlaar = true; let f = 0; const tot = 42;
+    (function tik() { scr.textContent = doel.split('').map((c, i) => c === ' ' || f / tot > i / doel.length + .12 ? c : tekens[(Math.random() * tekens.length) | 0]).join(''); if (++f <= tot) setTimeout(tik, 34); else scr.textContent = doel; })(); };
+
+  /* ---- reveal on view ---- */
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { if (e.target === scr) scramble(); else e.target.classList.add('aan'); io.unobserve(e.target); } }), { threshold: .2 });
+  $$('.op').forEach(el => io.observe(el)); io.observe(scr);
+
+  /* ---- form -> mailto ---- */
+  $$('[data-pakket]').forEach(b => b.addEventListener('click', () => { const r = $(`input[name=pakket][value="${b.dataset.pakket}"]`); if (r) r.checked = true; }));
+  $('#form').addEventListener('submit', e => {
+    e.preventDefault(); const f = new FormData(e.target);
+    const body = `Naam: ${f.get('naam')}\nBedrijf: ${f.get('bedrijf')}\nE-mail: ${f.get('email')}\nTelefoon: ${f.get('tel')}\nPakket: ${f.get('pakket')}\n\n${f.get('bericht')}`;
+    location.href = `mailto:${STUDIO.email}?subject=${encodeURIComponent('Projectaanvraag – ' + (f.get('bedrijf') || f.get('naam')))}&body=${encodeURIComponent(body)}`;
+  });
+
+  /* ---- main loop ---- */
+  const deel = $('.deeltjes'), pT = $$('.p-tekst span'), vulS = $('.vul'), werk = $('.werk'), spoor = $('#spoor'), wtel = $('#wteller');
+  const proces = $('.proces'), stappen = $$('.stap'), bol = $$('#bolletjes i'), lijnen = $$('.schets .t,.schets .z'), vlak = $('.schets .vlak'), sBeeld = $('#schetsBeeld');
+  const volImg = $('#volImg'), vol = $('#vol'), woordmerk = $('#woordmerk'), nav = $('#nav'), lichte = [$('.papier'), $('.prijzen'), $('.vol')];
+  function frame(t) {
+    cx += (mx - cx) * .2; cy += (my - cy) * .2; cur.style.transform = `translate(${cx}px,${cy}px) translate(-50%,-50%)`;
+    zx += (mx - zx) * .12; zy += (my - zy) * .12; zweef.style.left = zx + 'px'; zweef.style.top = zy + 'px';
+    const pd = voortgang(deel), rd = deel.getBoundingClientRect();
+    if (rd.bottom > 0 && rd.top < innerHeight) teken(rust ? .85 : pd, t);
+    pT.forEach(s => s.classList.toggle('aan', pd >= +s.dataset.van && pd < +s.dataset.tot)); $('#pbalk').style.transform = `scaleX(${pd})`;
+    const pv = voortgang(vulS) * 1.12; manW.forEach((w, i) => w.classList.toggle('aan', i / manW.length < pv));
+    const pw = voortgang(werk), max = spoor.scrollWidth - innerWidth + 56; spoor.style.transform = `translateX(${-pw * max}px)`;
+    wtel.textContent = String(Math.min(4, 1 + Math.floor(pw * 4))).padStart(2, '0') + ' / 04';
+    const pp = voortgang(proces), stap = Math.min(3, Math.floor(pp * 4));
+    stappen.forEach((s, i) => s.classList.toggle('aan', i === stap)); bol.forEach((b, i) => b.classList.toggle('aan', i <= stap));
+    lijnen.forEach((l, i) => l.style.strokeDashoffset = 1 - klem(pp * 2.2 - i * .04)); vlak.style.opacity = pp > .5 ? 1 : 0; sBeeld.classList.toggle('aan', pp > .78);
+    const rv = vol.getBoundingClientRect(); if (rv.bottom > 0 && rv.top < innerHeight) volImg.style.transform = `translateY(${(rv.top / innerHeight) * -12}%) scale(1.05)`;
+    const rw = woordmerk.getBoundingClientRect(); woordmerk.style.backgroundSize = `${klem((innerHeight - rw.top) / (innerHeight * .8)) * 100}% 100%`;
+    nav.classList.toggle('licht', lichte.some(s => { const b = s.getBoundingClientRect(); return b.top < 40 && b.bottom > 40; }));
+    requestAnimationFrame(frame);
+  }
+  init(); addEventListener('resize', init); requestAnimationFrame(frame);
+})();
+</script>
+
+<!-- Live 3D hero (three.js) -->
+<script type="module">
+const hero = document.getElementById('hero');
+try {
+  const THREE = await import('three');
+  const { RoomEnvironment } = await import('./assets/js/RoomEnvironment.js');
+  const canvas = document.getElementById('gl');
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false, powerPreference: 'high-performance' });
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 1.75));
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  const scene = new THREE.Scene(); scene.background = new THREE.Color(0x060807);
+  scene.environment = new THREE.PMREMGenerator(renderer).fromScene(new RoomEnvironment(), .04).texture;
+  const cam = new THREE.PerspectiveCamera(30, 1, .1, 100); cam.position.set(0, 0, 7.4);
+  const mat = new THREE.MeshPhysicalMaterial({ color: 0x0c0d0c, metalness: 1, roughness: .14, iridescence: 1, iridescenceIOR: 1.7, iridescenceThicknessRange: [180, 900], clearcoat: 1, clearcoatRoughness: .08 });
+  const knoop = new THREE.Mesh(new THREE.TorusKnotGeometry(1, .34, innerWidth < 700 ? 300 : 600, 96, 2, 3), mat);
+  scene.add(knoop);
+  const licht = (c, i, x, y, z) => { const p = new THREE.PointLight(c, i, 20, 2); p.position.set(x, y, z); scene.add(p); return p; };
+  const l1 = licht(0xc4f25a, 60, -3, 1.5, 2.5); licht(0xff8a3c, 40, 3.5, -1, 2); licht(0x6a8cff, 25, 0, 3, -3);
+  // floating dust
+  const stof = new THREE.BufferGeometry(), sp = new Float32Array(900 * 3); for (let i = 0; i < sp.length; i++) sp[i] = (Math.random() - .5) * 14;
+  stof.setAttribute('position', new THREE.BufferAttribute(sp, 3));
+  const stofP = new THREE.Points(stof, new THREE.PointsMaterial({ color: 0xc4f25a, size: .018, transparent: true, opacity: .6 })); scene.add(stofP);
+  let basis = 1;
+  const maat = () => { const w = hero.clientWidth, h = hero.clientHeight; renderer.setSize(w, h, false); cam.aspect = w / h; const mob = w < 700; cam.position.z = mob ? 10.5 : 7.4; knoop.position.x = mob ? .35 : 2.35; knoop.position.y = mob ? 2.2 : .25; basis = mob ? .62 : .82; cam.updateProjectionMatrix(); };
+  maat(); addEventListener('resize', maat);
+  let mx = 0, my = 0, rx = 0, ry = 0; addEventListener('pointermove', e => { mx = e.clientX / innerWidth - .5; my = e.clientY / innerHeight - .5; });
+  const klok = new THREE.Clock();
+  (function lus() {
+    const t = klok.getElapsedTime(), s = scrollY / innerHeight;
+    if (s < 1.3) {
+      rx += (my * .6 - rx) * .05; ry += (mx * .8 - ry) * .05;
+      knoop.rotation.set(.5 + t * .12 + rx + s * .8, .3 + t * .18 + ry, .2 + s * .4);
+      knoop.scale.setScalar(basis * (1 + s * .35));
+      l1.position.x = -3 + Math.sin(t * .6) * 2;
+      stofP.rotation.y = t * .02; stofP.position.y = s * 1.5;
+      renderer.render(scene, cam);
+    }
+    requestAnimationFrame(lus);
+  })();
+} catch (e) { hero.classList.add('geen-gl'); }
+</script>
+</body>
+</html>

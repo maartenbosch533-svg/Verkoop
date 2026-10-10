@@ -58,3 +58,16 @@ Het enige wat dit tegenhoudt is te weinig bellen.
 - **E-mailregels:** eenmanszaken en VOF's niet ongevraagd mailen of appen, eerst bellen (Telecommunicatiewet art. 11.7). B.V.'s mag je mailen met een afmeldmogelijkheid.
 - **Belasting en registratie:** woon je in Bulgarije, dan registreer je je daar waarschijnlijk als freelancer. Dat is 10% inkomstenbelasting, maar met sociale premies erbij reken je realistisch op ±25%. Op B2B-facturen aan Nederlandse bedrijven geldt btw-verlegging als je btw-geregistreerd bent. **Laat dit checken bij een Bulgaarse boekhouder voordat je de eerste factuur stuurt.**
 - **Een Nederlands telefoonnummer** (een VoIP-nummer, een paar euro per maand) verhoogt de kans dat ze opnemen flink. Neem het zodra de eerste klant betaalt.
+
+## Je eigen studiosite: `site/`
+Een filmische site voor je eigen webdesignbedrijf (werknaam **Nachtwerk**), met:
+- een preloader en een eigen cursor;
+- een live 3D-object in de hero (three.js);
+- een deeltjes-animatie (idee → ontwerp → website);
+- werk dat zijwaarts schuift, diensten met zwevende beelden en een proces dat zichzelf tekent;
+- prijspakketten en een contactformulier.
+
+- **Foto's** (`site/assets/img/`) zijn zelfgemaakte 3D-renders, dus geen rechtenproblemen. De laptops en telefoons tonen je eigen demo's.
+- **Naam en e-mail aanpassen:** zet je e-mailadres in `STUDIO` onderaan `site/index.html` (zoek op `hallo@nachtwerk.studio`). Wil je een andere naam? Zoek-en-vervang dan `nachtwerk` / `Nachtwerk` / `NACHTWERK`.
+- **Online zetten:** sleep de hele map `Verkoop` (of alleen `site/` + `demos/out/`) naar Netlify. De werk-kaarten linken naar `../demos/out/...`.
+- **Lokaal bekijken:** `python3 -m http.server` in de map `Verkoop`, en open dan http://localhost:8000/site/ (het 3D-script werkt niet via dubbelklikken op het bestand).
