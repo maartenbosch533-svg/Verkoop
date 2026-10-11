@@ -471,7 +471,8 @@
           <div><span class="mono">Werkwijze</span><b>Volledig op afstand</b></div>
         </div>
       </div>
-      <form id="form" class="op">
+      <form id="form" class="op" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-veld">
+        <input type="hidden" name="form-name" value="contact"><p hidden><label>Niet invullen <input name="bot-veld"></label></p>
         <div class="keuzes" role="group" aria-label="Pakket">
           <label><input type="radio" name="pakket" value="Essentieel"><span>Essentieel</span></label>
           <label><input type="radio" name="pakket" value="Signature" checked><span>Signature</span></label>
@@ -697,11 +698,17 @@ const STUDIO = { naam: 'Pixelbuild', email: 'hallo@pixelbuild.studio', tijdzone:
 
   /* ---- form -> mailto ---- */
   $$('[data-pakket]').forEach(b => b.addEventListener('click', () => { const r = $(`input[name=pakket][value="${b.dataset.pakket}"]`); if (r) r.checked = true; }));
-  $('#form').addEventListener('submit', e => {
-    e.preventDefault(); const f = new FormData(e.target);
-    const L = taal === 'en' ? ['Name', 'Company', 'Email', 'Phone', 'Package', 'Project request'] : ['Naam', 'Bedrijf', 'E-mail', 'Telefoon', 'Pakket', 'Projectaanvraag'];
-    const body = `${L[0]}: ${f.get('naam')}\n${L[1]}: ${f.get('bedrijf')}\n${L[2]}: ${f.get('email')}\n${L[3]}: ${f.get('tel')}\n${L[4]}: ${f.get('pakket')}\n\n${f.get('bericht')}`;
-    location.href = `mailto:${STUDIO.email}?subject=${encodeURIComponent(L[5] + ' – ' + (f.get('bedrijf') || f.get('naam')))}&body=${encodeURIComponent(body)}`;
+  $('#form').addEventListener('submit', async e => {
+    e.preventDefault(); const form = e.target, knop = form.querySelector('button[type=submit]');
+    knop.disabled = true;
+    try {
+      const r = await fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams(new FormData(form)).toString() });
+      if (!r.ok) throw new Error(r.status);
+      form.innerHTML = `<div style="padding:30px 0"><h3 style="font-size:2rem;letter-spacing:-.03em;margin-bottom:10px">${taal === 'en' ? 'Thank you!' : 'Bedankt!'}</h3><p style="color:var(--mute)">${taal === 'en' ? 'We will get back to you within 24 hours.' : 'We reageren binnen 24 uur.'}</p></div>`;
+    } catch (err) {
+      knop.disabled = false;
+      knop.insertAdjacentHTML('afterend', `<p style="color:#ff9a7a;margin-top:8px">${taal === 'en' ? 'Sending failed. Please email us at ' : 'Versturen mislukt. Mail ons op '}${STUDIO.email}</p>`);
+    }
   });
 
   /* ---- main loop ---- */
